@@ -1,0 +1,87 @@
+"use client";
+
+import { Field as FieldPrimitive } from "@base-ui/react/field";
+
+import { cn } from "@/lib/utils";
+
+function Field({ className, ...props }: FieldPrimitive.Root.Props) {
+  return (
+    <FieldPrimitive.Root
+      className={cn("flex flex-col items-start gap-2", className)}
+      data-slot="field"
+      {...props}
+    />
+  );
+}
+
+function FieldLabel({ className, ...props }: FieldPrimitive.Label.Props) {
+  return (
+    <FieldPrimitive.Label
+      className={cn(
+        "inline-flex items-center gap-2 font-medium text-base/4.5 text-foreground sm:text-sm/4",
+        className,
+      )}
+      data-slot="field-label"
+      {...props}
+    />
+  );
+}
+
+function FieldItem({ className, ...props }: FieldPrimitive.Item.Props) {
+  return (
+    <FieldPrimitive.Item className={cn("flex", className)} data-slot="field-item" {...props} />
+  );
+}
+
+function FieldDescription({ className, ...props }: FieldPrimitive.Description.Props) {
+  return (
+    <FieldPrimitive.Description
+      className={cn("text-muted-foreground text-xs", className)}
+      data-slot="field-description"
+      {...props}
+    />
+  );
+}
+
+function FieldError({ className, ...props }: FieldPrimitive.Error.Props) {
+  return (
+    <FieldPrimitive.Error
+      className={cn("text-destructive text-xs", className)}
+      data-slot="field-error"
+      {...props}
+    />
+  );
+}
+
+function FieldControl(props: FieldPrimitive.Control.Props) {
+  return <FieldPrimitive.Control data-slot="field-control" {...props} />;
+}
+
+function FieldValidity(props: FieldPrimitive.Validity.Props) {
+  return <FieldPrimitive.Validity data-slot="field-validity" {...props} />;
+}
+
+function FieldSeparator({ className, children, ...props }: React.HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div
+      className={cn("flex items-center gap-2 text-xs text-muted-foreground", className)}
+      data-slot="field-separator"
+      {...props}
+    >
+      <div className="h-px flex-1 bg-border" />
+      {children}
+      <div className="h-px flex-1 bg-border" />
+    </div>
+  );
+}
+
+export {
+  Field,
+  FieldLabel,
+  FieldDescription,
+  FieldError,
+  FieldControl,
+  FieldItem,
+  FieldValidity,
+  FieldSeparator,
+};

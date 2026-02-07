@@ -1,0 +1,24 @@
+{
+  "name": "@ts-connnect/auth",
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    },
+    "./*": {
+      "default": "./src/*.ts"
+    }
+  },
+  "scripts": {},
+  "dependencies": {
+    "@ts-connnect/db": "workspace:*",
+    "@ts-connnect/env": "workspace:*",
+    "better-auth": "catalog:",
+    "dotenv": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@ts-connnect/config": "workspace:*",
+    "typescript": "catalog:"
+  }
+}
