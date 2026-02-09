@@ -1,203 +1,301 @@
-# Core Feature PRD
+# v1 Financial Intelligence - Core Feature PRD
 
 ## 1) Purpose
 
-Define the non-negotiable core of the app so every user can:
+Transform the foundation MVP into an intelligent financial awareness and action system that helps users understand behavioral changes and take practical corrective actions.
 
-- Create an account and securely access their workspace.
-- Complete minimum financial onboarding.
-- Start from privacy-safe defaults without sharing unnecessary data.
-
-This PRD covers only the foundation layer. Advanced budgeting, analytics, and automation are out of scope for this phase.
+This PRD covers the intelligence layer that analyzes user data, generates insights, and provides actionable recommendations. Users should understand what changed in their financial behavior and be able to take immediate corrective actions.
 
 ## 2) Product Goals
 
-- Provide a fast onboarding flow that can be completed in under 2 minutes.
-- Capture the minimum profile required to personalize financial calculations.
-- Keep user data private by default and avoid collecting data not needed for core value.
-- Ensure core setup is stable enough for future modules to build on.
+- Provide clear explanations for month-over-month financial changes.
+- Generate actionable insights that lead to specific user behaviors.
+- Create a financial health scoring system (0-100) with trend tracking.
+- Enable users to take direct actions from insights (update budgets, create tasks).
+- Ensure reliable daily/weekly background analysis and signal generation.
 
 ## 3) Non-Goals (For This Phase)
 
-- Bank account linking.
-- Transaction ingestion or categorization.
-- Investment tracking.
-- Shared/family workspaces.
-- AI recommendations.
+- AI conversational coaching or deep personalization.
+- What-if simulation capabilities.
+- Advanced behavioral psychology features (mood tracking, friction controls).
+- Subscription tracking and leakage detection.
+- Emergency fund prediction and benchmarks.
 
 ## 4) Core User Stories
 
-1. As a new user, I can sign up and log in securely.
-2. As an authenticated user, I can set my preferred currency.
-3. As an authenticated user, I can set a financial start date.
-4. As an authenticated user, I can optionally set monthly income baseline.
-5. As a privacy-conscious user, my account defaults to minimal data sharing.
-6. As a returning user, I can edit onboarding values later in settings.
+1. As a user, I want to see month-over-month changes in income, expenses, and savings with clear explanations.
+2. As a user, I want a financial health score that reflects my overall financial stability.
+3. As a user, I want to receive warnings when my spending patterns indicate potential problems.
+4. As a user, I want to take immediate actions (update budget, create reminder) directly from insights.
+5. As a user, I want automated daily analysis that runs in the background without manual intervention.
+6. As a user, I want to track my progress on financial goals and see trend improvements/declines.
 
 ## 5) Functional Requirements
 
-### 5.1 Authentication and Session
+### 5.1 Enhanced Analysis Engine
 
-- Use Better Auth for sign up, sign in, sign out, and session retrieval.
-- Support email/password authentication at minimum.
-- Redirect unauthenticated users from protected routes to `/login`.
-- Successful sign up/sign in routes users to `/dashboard`.
-- Session-aware UI states:
-  - Loading state while checking session.
-  - Clear error toast on auth failure.
+**Monthly/Weekly Summaries:**
+- Generate comprehensive period summaries with period-over-period comparisons
+- Calculate rolling averages for income and expenses
+- Detect spending volatility and unusual spikes
+- Identify income irregularity patterns
 
-### 5.2 User Financial Profile Setup
+**Trend Analysis:**
+- Month-over-month percentage changes for all major categories
+- Rolling 3-month averages to smooth volatility
+- Spike detection with configurable thresholds
+- Income stability scoring and irregularity flags
 
-Required profile fields on onboarding:
+### 5.2 Financial Health Scoring
 
-- `currency` (required).
-- `financialStartDate` (required).
+**Health Score Calculation (0-100):**
+- Score components:
+  - Savings rate (25% weight)
+  - Budget adherence (25% weight)
+  - Income stability (20% weight)
+  - Expense volatility (15% weight)
+  - Goal progress (15% weight)
 
-Optional profile fields on onboarding:
+**Health State Labels:**
+- Stable: Score 80-100, consistent positive trends
+- Improving: Score 60-79, upward trajectory
+- Drifting: Score 40-59, mixed or flat trends
+- At Risk: Score 0-39, declining trends or negative patterns
 
-- `monthlyIncomeMin` (optional).
-- `monthlyIncomeMax` (optional).
+**Historical Tracking:**
+- Store daily score snapshots
+- Generate trend graphs showing 30/90-day score history
+- Identify score trend direction (improving/stable/declining)
 
-Rules:
+### 5.3 Rule-Based Signal Engine
 
-- Currency must be a supported ISO currency code from an app-defined list.
-- Financial start date cannot be in the future.
-- If one income bound is provided, both must be required.
-- `monthlyIncomeMin <= monthlyIncomeMax`.
-- All income values are non-negative numbers.
+**Decline Signals:**
+- **Spending Spike**: >30% increase over 3-month average in any category
+- **Savings Rate Drop**: >20% decrease month-over-month
+- **Budget Leakage**: >25% over budget in any category for 2+ consecutive months
+- **Category Anomaly**: Unusual spending in non-recurring categories
+- **Income Dip**: >20% decrease in income vs. 3-month average
+- **Debt Growth**: Debt payments increasing while savings decreasing
+- **Transaction Silence**: No transactions for >7 days (potential tracking abandonment)
 
-### 5.3 Privacy-First Defaults
+**Signal Metadata:**
+- Severity level (low/medium/high/critical)
+- Detailed explanation with supporting data
+- Triggering transactions or patterns
+- Recommended actions
 
-Default account behavior on user creation:
+**Insight Store:**
+- Persist all signals with timestamps
+- Deduplicate similar signals within time windows
+- Track active vs. resolved states
+- Signal timeline with status changes
 
-- Data visibility: private.
-- No public profile exposure.
-- No third-party data sync enabled.
-- Analytics/telemetry off unless explicitly opted in (if telemetry exists).
-- Least-privilege data retention for onboarding fields only.
+### 5.4 Early Warning System
 
-### 5.4 Profile Editability
+**Budget Overrun Alerts:**
+- Projected month-end totals vs. budget allocations
+- Alert when projected overruns >15% with 5+ days remaining in month
+- Category-specific warnings with actionable advice
 
-- Users can update currency and start date at any time in settings.
-- Users can add, change, or remove monthly income range.
-- Changes are auditable via `updatedAt` timestamps.
+**Savings Depletion Forecasts:**
+- Project runway based on current savings rate
+- Alert when projected depletion <3 months
+- Contextual advice for increasing savings rate
 
-## 6) UX Requirements
+**Debt Stagnation Alerts:**
+- Flag when debt payments decrease while overall debt stays flat
+- Alert when debt-to-income ratio increases month-over-month
 
-### 6.1 Onboarding Flow
+### 5.5 Action System
 
-1. User signs up or logs in.
-2. If profile is incomplete, redirect to onboarding.
-3. Collect required fields first (currency, start date).
-4. Prompt optional monthly income range.
-5. Confirm privacy defaults with concise copy.
-6. Continue to dashboard.
+**Direct Insight Actions:**
+- Update budget allocations based on spending patterns
+- Adjust goal targets based on progress trends
+- Create tasks/reminders with due dates
+- Archive or modify recurring transactions
 
-### 6.2 UX Quality Bar
+**Task and Reminder Management:**
+- Create tasks directly from insights with one click
+- Set due dates, priorities, and completion tracking
+- Task types: Budget adjustment, Goal review, Spending review, Payment reminder
+- Integration with user's task system
 
-- Form validation should be immediate and specific.
-- Do not block progress for optional income range.
-- Use loading indicators for network calls.
-- No blank screens during auth/session transitions.
+### 5.6 Quality and Observability
 
-## 7) Data Model (Initial)
+**Background Processing:**
+- Daily insight refresh (recommended: 6 AM user local time)
+- Weekly trend analysis (Sunday nights)
+- Real-time signal processing for critical alerts
 
-Add a user-profile table or equivalent extension linked 1:1 to auth user:
+**Observability:**
+- Track insight generation success/failure rates
+- Monitor user engagement with insights
+- Signal quality metrics (false positives, resolution rates)
+- Background job performance monitoring
 
-- `userId` (PK/FK to auth user)
-- `currency` (string, required)
-- `financialStartDate` (date, required)
-- `monthlyIncomeMin` (decimal, nullable)
-- `monthlyIncomeMax` (decimal, nullable)
-- `privacyMode` (enum/string, default `private`)
-- `telemetryOptIn` (boolean, default `false`)
-- `createdAt` (timestamp)
-- `updatedAt` (timestamp)
+## 6) Data Model Extensions
 
-## 8) API / Server Function Requirements
+### 6.1 Analysis Tables
 
-- `getUserProfile` (auth required).
-- `upsertUserProfile` (auth required).
-- `updatePrivacySettings` (auth required).
+**Financial Health Scores:**
+```sql
+- userId (FK)
+- score (integer 0-100)
+- healthState (enum: stable/improving/driftiong/at_risk)
+- scoreComponents (jsonb: savings_rate, budget_adherence, etc.)
+- trendDirection (enum: improving/stable/declining)
+- calculatedAt (timestamp)
+```
 
-Constraints:
+**Insights and Signals:**
+```sql
+- userId (FK)
+- insightType (enum: spending_spike, savings_drop, budget_leakage, etc.)
+- severity (enum: low/medium/high/critical)
+- title (string)
+- explanation (text)
+- supportingData (jsonb)
+- status (enum: active/resolved/dismissed)
+- createdAt (timestamp)
+- resolvedAt (timestamp)
+```
 
-- All handlers must enforce session ownership (`session.user.id` match).
-- No cross-user reads/writes.
-- Return typed validation errors for form mapping.
+**Trend Analysis:**
+```sql
+- userId (FK)
+- periodType (enum: daily/weekly/monthly)
+- periodStart (date)
+- periodEnd (date)
+- metrics (jsonb: income_total, expense_total, savings_rate, etc.)
+- comparisons (jsonb: vs_previous_period, vs_3month_avg)
+```
 
-## 9) Security and Privacy Requirements
+### 6.2 Task System
 
-- Enforce authentication on all profile endpoints.
-- Validate and sanitize all user input server-side.
-- Avoid logging sensitive user financial values in plaintext.
-- Use secure cookie/session settings via Better Auth defaults.
-- Collect only fields defined in this PRD for core onboarding.
+**User Tasks:**
+```sql
+- userId (FK)
+- title (string)
+- description (text)
+- taskType (enum: budget_adjustment, goal_review, spending_review, payment_reminder)
+- priority (enum: low/medium/high)
+- dueDate (timestamp)
+- status (enum: open/in_progress/completed/dismissed)
+- sourceInsightId (FK to insights)
+- createdAt (timestamp)
+- completedAt (timestamp)
+```
 
-## 10) Success Metrics
+## 7) API Requirements
 
-- `onboarding_completion_rate` >= 80% for newly registered users.
-- Median onboarding completion time <= 2 minutes.
-- Auth success rate >= 98% (excluding wrong credentials).
-- Profile save error rate < 2%.
+### 7.1 Analysis APIs
 
-## 11) Acceptance Criteria
+- `getFinancialHealth` - Current score and trend
+- `getPeriodSummary` - Monthly/weekly comparison data
+- `getTrendAnalysis` - Rolling averages and volatility metrics
+- `getInsights` - Active signals and recommendations
 
-1. New user can sign up, sign in, and sign out successfully.
-2. Protected routes reject unauthenticated access and redirect to `/login`.
-3. Onboarding cannot complete without currency and valid financial start date.
-4. Optional income range saves only when both min and max are valid.
-5. New accounts default to privacy mode `private` and telemetry opt-in `false`.
-6. Returning users can edit onboarding fields from settings.
-7. Data persists and is visible after re-login.
-8. All server writes are scoped to the authenticated user only.
+### 7.2 Action APIs
 
-## 12) Implementation Phases
+- `updateBudgetFromInsight` - Apply insight recommendations
+- `createTaskFromInsight` - Generate tasks from signals
+- `resolveInsight` - Mark insights as addressed
+- `dismissInsight` - Dismiss unwanted signals
 
-### Phase 1: Auth Stability
+### 7.3 Background Processing
 
-- Confirm Better Auth flows and route protection.
-- Ensure robust pending/error states in login/signup.
+- `triggerAnalysisRefresh` - Manual trigger for testing
+- `getBackgroundJobStatus` - Monitor processing health
 
-### Phase 2: Profile Schema + APIs
+## 8) UX Requirements
 
-- Add DB schema for user profile fields.
-- Implement validated server functions for read/write.
+### 8.1 Insight Presentation
 
-### Phase 3: Onboarding UI
+- Clear visual hierarchy: critical → high → medium → low severity
+- One-click actions for common recommendations
+- "Why am I seeing this?" explanations for all signals
+- Progress indicators for ongoing trends
 
-- Build onboarding route and form flow.
-- Enforce required vs optional validation rules.
+### 8.2 Financial Health Dashboard
 
-### Phase 4: Settings and Edit Flow
+- Prominent health score display with trend arrow
+- Color-coded health states (green/yellow/orange/red)
+- 30-day score history graph
+- Component breakdown showing what affects the score
 
-- Add settings UI for profile updates.
-- Persist and display updated values on dashboard/profile surfaces.
+### 8.3 Action Integration
 
-### Phase 5: Instrumentation
+- Inline action buttons on each insight
+- Quick action templates for common scenarios
+- Task creation flow with minimal friction
+- Action history and completion tracking
 
-- Add metrics for onboarding funnel and save failures.
-- Confirm privacy defaults are applied for all new users.
+## 9) Success Metrics
 
-## 13) Dependencies
+- **Insight Engagement**: >=60% of insights viewed within 24 hours
+- **Action Conversion**: >=30% of insights lead to at least one action
+- **Health Score Improvement**: >=40% of users show improving trends within 60 days
+- **Signal Accuracy**: >=85% of high-severity signals are legitimate concerns
+- **Background Job Reliability**: >=99% successful daily analysis completion
 
-- `@ts-connnect/auth` for session and auth lifecycle.
-- `@ts-connnect/db` for schema and persistence.
-- `@ts-connnect/env` for runtime configuration.
-- TanStack Start server functions and route guards.
+## 10) Acceptance Criteria
 
-## 14) Risks and Mitigations
+1. Users can view their financial health score with component breakdown and trend.
+2. All decline signals generate with proper severity levels and explanations.
+3. Insights can be resolved or dismissed with status tracking.
+4. Direct actions (budget updates, task creation) work seamlessly from insights.
+5. Daily background analysis completes successfully for 95%+ of active users.
+6. Month-over-month comparisons display accurate percentage changes.
+7. Early warning alerts trigger appropriately based on spending projections.
+8. Users can track task completion and see action history.
 
-- Risk: onboarding drop-off from too many required fields.
-  - Mitigation: keep only currency + start date mandatory.
-- Risk: inconsistent currency handling later.
-  - Mitigation: lock to supported currency enum now.
-- Risk: future privacy requirements change.
-  - Mitigation: centralize privacy settings in profile model and middleware.
+## 11) Implementation Phases
 
-## 15) Open Questions
+### Phase 1: Analysis Foundation
+- Implement trend analysis engine and period comparisons
+- Build financial health scoring algorithm
+- Create data model for scores and trends
 
-1. Which initial currency list should be supported at launch?
-2. Should financial start date default to account creation date or remain blank?
-3. Do we need locale-aware currency formatting in onboarding phase?
-4. Is telemetry opt-in needed now, or should it be deferred entirely?
+### Phase 2: Signal Generation
+- Build rule-based signal detection system
+- Implement insight persistence and deduplication
+- Create signal severity classification
+
+### Phase 3: User Interface
+- Design and build insight presentation components
+- Create financial health dashboard
+- Implement action buttons and workflows
+
+### Phase 4: Action System
+- Build task creation and management
+- Implement direct insight-to-action flows
+- Add action history and tracking
+
+### Phase 5: Background Processing
+- Set up daily/weekly analysis jobs
+- Implement early warning system
+- Add observability and monitoring
+
+## 12) Dependencies
+
+- Existing MVP user data (profiles, transactions, budgets, goals)
+- Background job infrastructure for daily analysis
+- Notification system for alerts and warnings
+- Database optimization for time-series analysis queries
+
+## 13) Risks and Mitigations
+
+- **Risk**: Analysis complexity leads to slow performance
+  - **Mitigation**: Implement data aggregation and caching strategies
+- **Risk**: Signal noise overwhelms users
+  - **Mitigation**: Strict severity thresholds and user preference controls
+- **Risk**: False positive alerts damage trust
+  - **Mitigation**: Conservative initial thresholds with user feedback iteration
+
+## 14) Open Questions
+
+1. What should be the minimum data requirements before generating insights?
+2. How should we handle users with insufficient transaction history?
+3. Should insights be real-time or batched for better user experience?
+4. What notification channels should be supported for early warnings?

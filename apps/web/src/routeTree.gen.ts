@@ -11,10 +11,14 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as DboardRouteImport } from './routes/dboard'
 import { Route as DashboardRouteImport } from './routes/dashboard'
-import { Route as R3RouteImport } from './routes/3'
-import { Route as R2RouteImport } from './routes/2'
+import { Route as R5RouteImport } from './routes/5'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as OnboardingWelcomeRouteImport } from './routes/onboarding/welcome'
+import { Route as OnboardingStep5RouteImport } from './routes/onboarding/step5'
+import { Route as OnboardingStep4RouteImport } from './routes/onboarding/step4'
+import { Route as OnboardingStep3RouteImport } from './routes/onboarding/step3'
 import { Route as OnboardingStep2RouteImport } from './routes/onboarding/step2'
 import { Route as OnboardingStep1RouteImport } from './routes/onboarding/step1'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
@@ -29,24 +33,44 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DboardRoute = DboardRouteImport.update({
+  id: '/dboard',
+  path: '/dboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
-const R3Route = R3RouteImport.update({
-  id: '/3',
-  path: '/3',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const R2Route = R2RouteImport.update({
-  id: '/2',
-  path: '/2',
+const R5Route = R5RouteImport.update({
+  id: '/5',
+  path: '/5',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingWelcomeRoute = OnboardingWelcomeRouteImport.update({
+  id: '/onboarding/welcome',
+  path: '/onboarding/welcome',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingStep5Route = OnboardingStep5RouteImport.update({
+  id: '/onboarding/step5',
+  path: '/onboarding/step5',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingStep4Route = OnboardingStep4RouteImport.update({
+  id: '/onboarding/step4',
+  path: '/onboarding/step4',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingStep3Route = OnboardingStep3RouteImport.update({
+  id: '/onboarding/step3',
+  path: '/onboarding/step3',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OnboardingStep2Route = OnboardingStep2RouteImport.update({
@@ -67,83 +91,111 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/2': typeof R2Route
-  '/3': typeof R3Route
+  '/5': typeof R5Route
   '/dashboard': typeof DashboardRoute
+  '/dboard': typeof DboardRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/onboarding/step1': typeof OnboardingStep1Route
   '/onboarding/step2': typeof OnboardingStep2Route
+  '/onboarding/step3': typeof OnboardingStep3Route
+  '/onboarding/step4': typeof OnboardingStep4Route
+  '/onboarding/step5': typeof OnboardingStep5Route
+  '/onboarding/welcome': typeof OnboardingWelcomeRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/2': typeof R2Route
-  '/3': typeof R3Route
+  '/5': typeof R5Route
   '/dashboard': typeof DashboardRoute
+  '/dboard': typeof DboardRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/onboarding/step1': typeof OnboardingStep1Route
   '/onboarding/step2': typeof OnboardingStep2Route
+  '/onboarding/step3': typeof OnboardingStep3Route
+  '/onboarding/step4': typeof OnboardingStep4Route
+  '/onboarding/step5': typeof OnboardingStep5Route
+  '/onboarding/welcome': typeof OnboardingWelcomeRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/2': typeof R2Route
-  '/3': typeof R3Route
+  '/5': typeof R5Route
   '/dashboard': typeof DashboardRoute
+  '/dboard': typeof DboardRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/onboarding/step1': typeof OnboardingStep1Route
   '/onboarding/step2': typeof OnboardingStep2Route
+  '/onboarding/step3': typeof OnboardingStep3Route
+  '/onboarding/step4': typeof OnboardingStep4Route
+  '/onboarding/step5': typeof OnboardingStep5Route
+  '/onboarding/welcome': typeof OnboardingWelcomeRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/2'
-    | '/3'
+    | '/5'
     | '/dashboard'
+    | '/dboard'
     | '/login'
     | '/signup'
     | '/onboarding/step1'
     | '/onboarding/step2'
+    | '/onboarding/step3'
+    | '/onboarding/step4'
+    | '/onboarding/step5'
+    | '/onboarding/welcome'
     | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/2'
-    | '/3'
+    | '/5'
     | '/dashboard'
+    | '/dboard'
     | '/login'
     | '/signup'
     | '/onboarding/step1'
     | '/onboarding/step2'
+    | '/onboarding/step3'
+    | '/onboarding/step4'
+    | '/onboarding/step5'
+    | '/onboarding/welcome'
     | '/api/auth/$'
   id:
     | '__root__'
     | '/'
-    | '/2'
-    | '/3'
+    | '/5'
     | '/dashboard'
+    | '/dboard'
     | '/login'
     | '/signup'
     | '/onboarding/step1'
     | '/onboarding/step2'
+    | '/onboarding/step3'
+    | '/onboarding/step4'
+    | '/onboarding/step5'
+    | '/onboarding/welcome'
     | '/api/auth/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  R2Route: typeof R2Route
-  R3Route: typeof R3Route
+  R5Route: typeof R5Route
   DashboardRoute: typeof DashboardRoute
+  DboardRoute: typeof DboardRoute
   LoginRoute: typeof LoginRoute
   SignupRoute: typeof SignupRoute
   OnboardingStep1Route: typeof OnboardingStep1Route
   OnboardingStep2Route: typeof OnboardingStep2Route
+  OnboardingStep3Route: typeof OnboardingStep3Route
+  OnboardingStep4Route: typeof OnboardingStep4Route
+  OnboardingStep5Route: typeof OnboardingStep5Route
+  OnboardingWelcomeRoute: typeof OnboardingWelcomeRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
@@ -163,6 +215,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dboard': {
+      id: '/dboard'
+      path: '/dboard'
+      fullPath: '/dboard'
+      preLoaderRoute: typeof DboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dashboard': {
       id: '/dashboard'
       path: '/dashboard'
@@ -170,18 +229,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/3': {
-      id: '/3'
-      path: '/3'
-      fullPath: '/3'
-      preLoaderRoute: typeof R3RouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/2': {
-      id: '/2'
-      path: '/2'
-      fullPath: '/2'
-      preLoaderRoute: typeof R2RouteImport
+    '/5': {
+      id: '/5'
+      path: '/5'
+      fullPath: '/5'
+      preLoaderRoute: typeof R5RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -189,6 +241,34 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding/welcome': {
+      id: '/onboarding/welcome'
+      path: '/onboarding/welcome'
+      fullPath: '/onboarding/welcome'
+      preLoaderRoute: typeof OnboardingWelcomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding/step5': {
+      id: '/onboarding/step5'
+      path: '/onboarding/step5'
+      fullPath: '/onboarding/step5'
+      preLoaderRoute: typeof OnboardingStep5RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding/step4': {
+      id: '/onboarding/step4'
+      path: '/onboarding/step4'
+      fullPath: '/onboarding/step4'
+      preLoaderRoute: typeof OnboardingStep4RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding/step3': {
+      id: '/onboarding/step3'
+      path: '/onboarding/step3'
+      fullPath: '/onboarding/step3'
+      preLoaderRoute: typeof OnboardingStep3RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/onboarding/step2': {
@@ -217,13 +297,17 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  R2Route: R2Route,
-  R3Route: R3Route,
+  R5Route: R5Route,
   DashboardRoute: DashboardRoute,
+  DboardRoute: DboardRoute,
   LoginRoute: LoginRoute,
   SignupRoute: SignupRoute,
   OnboardingStep1Route: OnboardingStep1Route,
   OnboardingStep2Route: OnboardingStep2Route,
+  OnboardingStep3Route: OnboardingStep3Route,
+  OnboardingStep4Route: OnboardingStep4Route,
+  OnboardingStep5Route: OnboardingStep5Route,
+  OnboardingWelcomeRoute: OnboardingWelcomeRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport

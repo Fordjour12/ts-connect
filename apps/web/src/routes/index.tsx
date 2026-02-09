@@ -1,31 +1,44 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import {
+  Progress,
+  ProgressTrack,
+  ProgressIndicator,
+} from "@/components/ui/progress";
+import { Separator } from "@/components/ui/separator";
+import { Footer } from "@/components/ui/footer";
 
 export const Route = createFileRoute("/")({
   component: HomeComponent,
 });
 
-const SIGNALS = [
+const CAPABILITIES = [
   {
-    title: "Drift detected early",
-    description: "Spending moved +12% over your baseline before it became a problem.",
-    tone: "text-emerald-400",
+    title: "Smart Tracking",
+    description:
+      "Connect accounts, categorize transactions, and see your financial picture at a glance.",
+    icon: "◎",
+    color: "text-info",
+  },
+  {
+    title: "Decline Detection",
+    description:
+      "Early warnings for spending spikes, savings drops, and patterns that need attention.",
     icon: "●",
+    color: "text-warning",
   },
   {
-    title: "Stability improving",
-    description: "Essentials stayed consistent for 3 weeks while savings held steady.",
-    tone: "text-amber-400",
-    icon: "◆",
-  },
-  {
-    title: "Clear next step",
-    description: "Shift one category cap by 8% to protect this month's goal.",
-    tone: "text-sky-400",
-    icon: "▲",
+    title: "AI Coach",
+    description:
+      "Ask questions, get explanations, and receive personalized guidance without judgment.",
+    icon: "◈",
+    color: "text-success",
   },
 ] as const;
 
-const PRINCIPLES = [
+const PHILOSOPHY = [
   {
     title: "Explanations first",
     subtitle: "Understanding comes before judgment",
@@ -40,236 +53,261 @@ const PRINCIPLES = [
   },
 ] as const;
 
+const HOW_IT_WORKS = [
+  {
+    step: "Track",
+    description: "Connect accounts and log transactions automatically",
+  },
+  {
+    step: "Detect",
+    description: "We spot patterns and early warning signs",
+  },
+  {
+    step: "Explain",
+    description: "AI tells you why your financial picture changed",
+  },
+  {
+    step: "Suggest",
+    description: "Practical, safe recommendations for next steps",
+  },
+  {
+    step: "Apply",
+    description: "One-click to act on suggestions",
+  },
+  {
+    step: "Adapt",
+    description: "Adjusts to bad months, burnout, and real life",
+  },
+] as const;
+
 function HomeComponent() {
   return (
-    <div className="min-h-screen bg-[color:var(--background)] text-[color:var(--foreground)] selection:bg-emerald-500/30">
+    <div className="min-h-screen bg-background text-foreground selection:bg-success/30">
       <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,rgba(34,197,94,0.03)_0%,transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_60%,rgba(14,165,233,0.03)_0%,transparent_50%)]" />
+        {/* <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,rgba(0,0,0,0.03)_0%,transparent_50%)]" /> */}
+        {/* <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_60%,rgba(14,165,233,0.03)_0%,transparent_50%)]" /> */}
       </div>
 
-      <header className="relative border-b border-[color:var(--border)]">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
-          <div className="flex items-center gap-3">
-            <div className="h-6 w-6 rounded-full bg-gradient-to-br from-emerald-400/60 to-sky-400/60" />
-            <span className="text-sm font-medium tracking-wide text-[color:var(--foreground)]">
-              Regulate
-            </span>
-          </div>
-          <nav className="flex items-center gap-6">
-            <Link
-              to="/login"
-              className="text-sm text-[color:var(--muted-foreground)] transition-colors hover:text-[color:var(--foreground)]"
-            >
-              Sign in
-            </Link>
-            <Link
-              to="/login"
-              className="rounded-lg bg-[color:var(--primary)] px-4 py-2 text-sm font-medium text-[color:var(--primary-foreground)] transition-all hover:scale-[1.02]"
-            >
-              Get started
-            </Link>
-          </nav>
-        </div>
-      </header>
-
-      <main className="relative mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24 lg:py-32">
+      <main className="relative mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-24 lg:py-32">
         <section className="mb-24 grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
           <div className="space-y-8">
-            <div className="inline-flex items-center gap-2 rounded-full border border-[color:var(--border)] bg-[color:var(--muted)] px-3 py-1">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-xs tracking-[0.12em] uppercase text-[color:var(--muted-foreground)]">
-                Financial self-regulation
+            <Badge variant="outline" className="gap-2 border-border bg-muted">
+              <span className="h-1.5 w-1.5 rounded-full bg-success animate-pulse" />
+              <span className="tracking-[0.12em] uppercase">
+                AI-Powered Financial Intelligence
               </span>
-            </div>
+            </Badge>
 
-            <h1 className="font-sans text-4xl leading-[1.1] tracking-tight text-[color:var(--foreground)] sm:text-5xl lg:text-6xl">
-              Someone thoughtful
+            <h1 className="font-sans text-4xl leading-[1.1] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+              Financial clarity without
               <br />
-              <span className="text-[color:var(--muted-foreground)]">helping you think</span>
+              <span className="text-muted-foreground">
+                the spreadsheet overwhelm.
+              </span>
               <br />
-              <span className="bg-gradient-to-r from-[color:var(--foreground)] via-[color:var(--muted-foreground)] to-[color:var(--muted-foreground)] bg-clip-text text-transparent">
-                clearly about money.
+              <span className="bg-gradient-to-r from-foreground via-muted-foreground to-muted-foreground bg-clip-text text-transparent">
+                A coach that actually helps.
               </span>
             </h1>
 
-            <p className="max-w-lg text-base leading-relaxed text-[color:var(--muted-foreground)] sm:text-lg">
-              Not a bank. Not spreadsheets. A calm space that surfaces trends, explains what
-              changed, and helps you respond before stress compounds.
+            <p className="max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg">
+              Track accounts, detect decline early, and get AI-powered guidance
+              that explains what changed and suggests your next move — without
+              guilt or pressure.
             </p>
 
             <div className="flex flex-wrap items-center gap-3 pt-2">
-              <Link
-                to="/login"
-                className="group relative overflow-hidden rounded-xl bg-[color:var(--primary)] px-6 py-2.5 text-sm font-medium text-[color:var(--primary-foreground)] transition-all hover:scale-[1.02]"
-              >
-                <span className="relative z-10">Start your setup</span>
-                <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-white/20 to-transparent transition-transform duration-300 group-hover:translate-x-0" />
-              </Link>
-              <Link
-                to="/dashboard"
-                className="rounded-xl border border-[color:var(--border)] bg-[color:var(--secondary)] px-6 py-2.5 text-sm font-medium text-[color:var(--secondary-foreground)] transition-all hover:bg-[color:var(--accent)]"
-              >
+              <Button render={<Link to="/login" />}>Start your setup</Button>
+              <Button variant="outline" render={<Link to="/dashboard" />}>
                 View dashboard
-              </Link>
+              </Button>
             </div>
           </div>
 
-          <div className="relative rounded-2xl border border-[color:var(--border)] bg-[color:var(--card)] p-6 sm:p-8 shadow-xl">
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-500/5 via-transparent to-sky-500/5" />
+          <Card className="relative rounded-2xl border border-border bg-card p-6 sm:p-8 shadow-xl">
+            <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-success/5 via-transparent to-info/5" />
             <div className="relative space-y-6">
               <div className="flex items-center justify-between">
-                <span className="text-xs tracking-[0.12em] uppercase text-[color:var(--muted-foreground)]">
-                  This week at a glance
+                <span className="text-xs tracking-[0.12em] uppercase text-muted-foreground">
+                  Your Financial Health
                 </span>
-                <span className="text-xs text-[color:var(--muted-foreground)]">Week 4, Jan</span>
+                <span className="text-xs text-muted-foreground">
+                  Week 4, Jan
+                </span>
               </div>
 
               <div className="space-y-5">
                 <div className="space-y-2">
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-[color:var(--muted-foreground)]">Spending stability</span>
-                    <span className="text-emerald-500">Steady</span>
+                    <span className="text-muted-foreground">Health Score</span>
+                    <span className="text-success">82/100</span>
                   </div>
-                  <div className="h-1.5 overflow-hidden rounded-full bg-[color:var(--muted)]">
-                    <div className="h-full w-[66%] rounded-full bg-emerald-500/50" />
-                  </div>
+                  <Progress value={82}>
+                    <ProgressTrack>
+                      <ProgressIndicator className="bg-success/50" />
+                    </ProgressTrack>
+                  </Progress>
                 </div>
 
                 <div className="space-y-2">
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-[color:var(--muted-foreground)]">Budget pressure</span>
-                    <span className="text-amber-500">Moderate</span>
+                    <span className="text-muted-foreground">Savings Rate</span>
+                    <span className="text-success">+12% vs baseline</span>
                   </div>
-                  <div className="h-1.5 overflow-hidden rounded-full bg-[color:var(--muted)]">
-                    <div className="h-full w-1/2 rounded-full bg-amber-500/50" />
-                  </div>
+                  <Progress value={66}>
+                    <ProgressTrack>
+                      <ProgressIndicator className="bg-success/50" />
+                    </ProgressTrack>
+                  </Progress>
                 </div>
 
-                <div className="rounded-xl border border-[color:var(--border)] bg-[color:var(--secondary)] p-4">
-                  <p className="text-sm leading-relaxed text-[color:var(--foreground)]">
-                    You are not behind. You are trending.
-                    <span className="block mt-1 text-[color:var(--muted-foreground)]">
-                      We guide the next move.
+                <Card className="rounded-xl border border-border bg-secondary p-4">
+                  <p className="text-sm leading-relaxed text-foreground">
+                    <span className="text-warning">⚠</span> Spending in Dining
+                    up 23% this week.
+                    <span className="block mt-1 text-muted-foreground">
+                      Your AI Coach has a suggestion.
                     </span>
                   </p>
-                </div>
+                </Card>
               </div>
             </div>
-          </div>
+          </Card>
         </section>
 
         <section className="mb-24">
           <div className="mb-8 flex items-center gap-3">
-            <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[color:var(--border)]" />
-            <span className="text-xs tracking-[0.15em] uppercase text-[color:var(--muted-foreground)]">
-              Intelligent signals
+            <Separator className="flex-1 bg-gradient-to-r from-transparent to-[color:var(--border)]" />
+            <span className="text-xs tracking-[0.15em] uppercase text-muted-foreground">
+              What Regulate Does
             </span>
-            <div className="h-px flex-1 bg-gradient-to-l from-transparent to-[color:var(--border)]" />
+            <Separator className="flex-1 bg-gradient-to-l from-transparent to-[color:var(--border)]" />
           </div>
 
           <div className="grid gap-4 sm:grid-cols-3">
-            {SIGNALS.map((signal, i) => (
-              <article
-                key={signal.title}
-                className="group relative overflow-hidden rounded-2xl border border-[color:var(--border)] bg-[color:var(--card)] p-6 transition-all hover:border-[color:var(--accent)]"
-                style={{ animationDelay: `${i * 100}ms` }}
+            {CAPABILITIES.map((cap) => (
+              <Card
+                key={cap.title}
+                className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 transition-all hover:border-[color:var(--accent)]"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/3 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                <div className="absolute inset-0 bg-gradient-to-br from-success/3 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                 <div className="relative">
-                  <span className={`mb-3 block text-xs tracking-widest uppercase ${signal.tone}`}>
-                    {signal.icon} Signal
+                  <span
+                    className={`mb-3 block text-xs tracking-widest uppercase ${cap.color}`}
+                  >
+                    {cap.icon} {cap.title}
                   </span>
-                  <h3 className="mb-2 text-lg font-medium text-[color:var(--foreground)]">
-                    {signal.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-[color:var(--muted-foreground)]">
-                    {signal.description}
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    {cap.description}
                   </p>
                 </div>
-              </article>
+              </Card>
             ))}
           </div>
         </section>
 
-        <section className="relative mb-24 overflow-hidden rounded-3xl border border-[color:var(--border)] bg-[color:var(--card)] p-8 sm:p-12">
-          <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/3 via-transparent to-sky-500/3" />
+        <section className="relative mb-24 overflow-hidden rounded-3xl border border-border bg-card p-8 sm:p-12">
+          <div className="absolute inset-0 bg-gradient-to-br from-success/3 via-transparent to-info/3" />
+          <div className="relative mb-10">
+            <span className="text-xs tracking-[0.12em] uppercase text-muted-foreground">
+              How It Works
+            </span>
+            <h2 className="mt-3 text-2xl leading-tight text-foreground sm:text-3xl lg:text-4xl">
+              From tracking to action,
+              <span className="block mt-1 text-muted-foreground">
+                without the overwhelm.
+              </span>
+            </h2>
+          </div>
+
+          <div className="relative grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {HOW_IT_WORKS.map((item, i) => (
+              <Card
+                key={item.step}
+                className="flex items-start gap-4 rounded-xl border border-border bg-secondary p-5 transition-all hover:bg-accent"
+              >
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-medium text-primary-foreground">
+                  {i + 1}
+                </span>
+                <div>
+                  <span className="text-xs tracking-widest uppercase text-muted-foreground">
+                    {item.step}
+                  </span>
+                  <p className="mt-1 text-sm leading-relaxed text-foreground">
+                    {item.description}
+                  </p>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        <section className="relative mb-24 overflow-hidden rounded-3xl border border-border bg-card p-8 sm:p-12">
+          <div className="absolute inset-0 bg-gradient-to-br from-success/3 via-transparent to-info/3" />
           <div className="relative grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
             <div className="space-y-6">
-              <span className="text-xs tracking-[0.12em] uppercase text-[color:var(--muted-foreground)]">
-                The approach
+              <span className="text-xs tracking-[0.12em] uppercase text-muted-foreground">
+                The Approach
               </span>
-              <h2 className="text-2xl leading-tight text-[color:var(--foreground)] sm:text-3xl lg:text-4xl">
+              <h2 className="text-2xl leading-tight text-foreground sm:text-3xl lg:text-4xl">
                 Guidance that feels like a
-                <span className="block mt-1 text-[color:var(--muted-foreground)]">
+                <span className="block mt-1 text-muted-foreground">
                   thoughtful check-in.
                 </span>
               </h2>
-              <p className="max-w-md text-sm leading-relaxed text-[color:var(--muted-foreground)] sm:text-base">
-                The coach explains why a pattern changed, asks at most one clarifying question, then
-                recommends one concrete action for the next 7 days.
+              <p className="max-w-md text-sm leading-relaxed text-muted-foreground sm:text-base">
+                The AI Coach explains why a pattern changed, asks at most one
+                clarifying question, then recommends one concrete action for the
+                next 7 days.
               </p>
             </div>
 
             <div className="grid gap-4 sm:grid-cols-3">
-              {PRINCIPLES.map((principle, i) => (
-                <div
+              {PHILOSOPHY.map((principle, i) => (
+                <Card
                   key={principle.title}
-                  className="rounded-xl border border-[color:var(--border)] bg-[color:var(--secondary)] p-5 transition-all hover:bg-[color:var(--accent)]"
+                  className="rounded-xl border border-border bg-secondary p-5 transition-all hover:bg-accent"
                   style={{ animationDelay: `${i * 150}ms` }}
                 >
-                  <span className="text-xs tracking-widest uppercase text-[color:var(--muted-foreground)]">
+                  <span className="text-xs tracking-widest uppercase text-muted-foreground">
                     0{i + 1}
                   </span>
-                  <h3 className="mt-2 mb-1 font-medium text-[color:var(--foreground)]">
+                  <h3 className="mt-2 mb-1 font-medium text-foreground">
                     {principle.title}
                   </h3>
-                  <p className="text-xs leading-relaxed text-[color:var(--muted-foreground)]">
+                  <p className="text-xs leading-relaxed text-muted-foreground">
                     {principle.subtitle}
                   </p>
-                </div>
+                </Card>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="relative overflow-hidden rounded-2xl border border-emerald-500/20 bg-gradient-to-br from-emerald-500/10 via-transparent to-sky-500/10 p-8 sm:p-10">
+        <section className="relative overflow-hidden rounded-2xl border border-success/20 bg-gradient-to-br from-success/10 via-transparent to-info/10 p-8 sm:p-10">
           <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(34,197,94,0.02)_25%,rgba(34,197,94,0.02)_75%,transparent_75%,transparent)] bg-[length:8px_8px]" />
           <div className="relative flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
             <div>
-              <span className="mb-2 inline-block text-xs tracking-[0.12em] uppercase text-emerald-500/80">
-                Designed for calm control
+              <span className="mb-2 inline-block text-xs tracking-[0.12em] uppercase text-success/80">
+                Built for Real Life
               </span>
-              <p className="max-w-xl text-base leading-relaxed text-[color:var(--foreground)] sm:text-lg">
-                Built for young professionals and creatives who want clarity without spreadsheet
-                overload or financial shame loops.
+              <p className="max-w-xl text-base leading-relaxed text-foreground sm:text-lg">
+                Bad months happen. Burnout is real. Regulate adapts to your
+                situation with safety modes, reduced-pressure UI, and guidance
+                that meets you where you are.
               </p>
             </div>
-            <Link
-              to="/login"
-              className="shrink-0 rounded-xl bg-emerald-500/20 px-6 py-2.5 text-sm font-medium text-emerald-500 transition-all hover:bg-emerald-500/30 hover:scale-[1.02]"
-            >
-              Enter the app
+            <Link to="/login" asChild>
+              <Button
+                variant="outline"
+                className="shrink-0 bg-success/20 text-success hover:bg-success/30"
+              >
+                Enter the app
+              </Button>
             </Link>
           </div>
         </section>
       </main>
-
-      <footer className="relative border-t border-[color:var(--border)] py-12">
-        <div className="mx-auto max-w-6xl px-5 sm:px-8">
-          <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
-            <div className="flex items-center gap-3">
-              <div className="h-5 w-5 rounded-full bg-gradient-to-br from-emerald-400/60 to-sky-400/60" />
-              <span className="text-sm font-medium tracking-wide text-[color:var(--muted-foreground)]">
-                Regulate
-              </span>
-            </div>
-            <p className="text-xs text-[color:var(--muted-foreground)]">
-              © 2025 Regulate. Financial self-regulation system.
-            </p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

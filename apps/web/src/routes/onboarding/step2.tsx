@@ -1,4 +1,4 @@
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useForm } from "@tanstack/react-form";
 import { toast } from "sonner";
 
@@ -6,6 +6,8 @@ import { StepIndicator } from "@/components/onboarding/step-indicator";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Card, CardContent } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 
 const currencies = [
@@ -38,13 +40,20 @@ function Step2Component() {
       financialStartDate: `${currentYear}-${currentMonthStr}-01`,
       monthlyIncomeMin: "",
       monthlyIncomeMax: "",
+      privacyOptIn: false,
     },
     onSubmit: async ({ value }) => {
+      if (!value.currency) {
+        toast.error("Please select your currency");
+        return;
+      }
+
       const payload = {
         currency: value.currency,
         financialStartDate: value.financialStartDate,
         monthlyIncomeMin: value.monthlyIncomeMin ? Number(value.monthlyIncomeMin) : null,
         monthlyIncomeMax: value.monthlyIncomeMax ? Number(value.monthlyIncomeMax) : null,
+        privacyOptIn: value.privacyOptIn,
       };
 
       try {
@@ -59,8 +68,8 @@ function Step2Component() {
           throw new Error(errorData.message || "Failed to save profile");
         }
 
-        toast.success("Profile saved successfully");
-        throw redirect({ to: "/dashboard" });
+        toast.success("Foundation setup complete!");
+        window.location.href = "/onboarding/step3";
       } catch (error) {
         if (error instanceof Error) {
           toast.error(error.message);
@@ -73,112 +82,160 @@ function Step2Component() {
     currencies.find((c) => c.code === form.state.values.currency)?.symbol || "";
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-200px)] px-4 py-8">
-      <StepIndicator currentStep={2} className="mb-8" />
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/30">
+      <div className="container mx-auto px-4 py-8 max-w-2xl">
+        <StepIndicator currentStep={3} className="mb-8" />
 
-      <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-semibold tracking-tight">Set up your profile</h1>
-          <p className="text-sm text-muted-foreground mt-2">
-            Step 2 of 2 — Customize your experience
+          <h1 className="text-3xl font-bold tracking-tight mb-3">
+            Let's Set Your Foundation
+          </h1>
+          <p className="text-muted-foreground max-w-md mx-auto">
+            We'll personalize your experience with a few basic preferences. 
+            Don't worry, you can change these anytime.
           </p>
         </div>
 
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            form.handleSubmit();
-          }}
-          className="space-y-6"
-        >
-          <div className="space-y-2">
-            <Label htmlFor="currency">Currency *</Label>
-            <select
-              id="currency"
-              name="currency"
-              value={form.state.values.currency}
-              onChange={(e) => (form.state.values.currency = e.target.value)}
-              className={cn(
-                "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2",
-                "text-sm ring-offset-background focus-visible:outline-none",
-                "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-              )}
+        <Card className="border-2">
+          <CardContent className="p-8">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                form.handleSubmit();
+              }}
+              className="space-y-8"
             >
-              <option value="">Select a currency</option>
-              {currencies.map((currency) => (
-                <option key={currency.code} value={currency.code}>
-                  {currency.symbol} {currency.code} — {currency.name}
-                </option>
-              ))}
-            </select>
-          </div>
+              <div className="space-y-6">
+                <div className="space-y-2">
+                  <Label htmlFor="currency" className="text-base font-medium">
+                    Primary Currency *
+                  </Label>
+                  <p className="text-sm text-muted-foreground">
+                    Choose the currency you'll use for tracking expenses and budgets
+                  </p>
+                  <select
+                    id="currency"
+                    name="currency"
+                    value={form.state.values.currency}
+                    onChange={(e) => (form.state.values.currency = e.target.value)}
+                    className={cn(
+                      "flex h-12 w-full rounded-md border-2 border-input bg-background px-3 py-2",
+                      "text-base ring-offset-background focus-visible:outline-none",
+                      "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                      !form.state.values.currency && "text-muted-foreground"
+                    )}
+                  >
+                    <option value="">Select your currency</option>
+                    {currencies.map((currency) => (
+                      <option key={currency.code} value={currency.code}>
+                        {currency.symbol} {currency.code} — {currency.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="financialStartDate">Financial Start Date *</Label>
-            <Input
-              id="financialStartDate"
-              name="financialStartDate"
-              type="date"
-              max={new Date().toISOString().split("T")[0]}
-              value={form.state.values.financialStartDate}
-              onChange={(e) => (form.state.values.financialStartDate = e.target.value)}
-            />
-          </div>
-
-          <div className="space-y-3 pt-4 border-t">
-            <Label className="text-sm text-muted-foreground">Monthly Income Range (Optional)</Label>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="monthlyIncomeMin" className="text-xs">
-                  Minimum
-                </Label>
-                <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">
-                    {currencySymbol}
-                  </span>
+                <div className="space-y-2">
+                  <Label htmlFor="financialStartDate" className="text-base font-medium">
+                    Financial Start Date *
+                  </Label>
+                  <p className="text-sm text-muted-foreground">
+                    When did you start tracking your finances seriously? This helps calculate savings and trends.
+                  </p>
                   <Input
-                    id="monthlyIncomeMin"
-                    name="monthlyIncomeMin"
-                    type="number"
-                    min="0"
-                    step="0.01"
-                    placeholder="0.00"
-                    value={form.state.values.monthlyIncomeMin}
-                    onChange={(e) => (form.state.values.monthlyIncomeMin = e.target.value)}
-                    className="pl-7"
+                    id="financialStartDate"
+                    name="financialStartDate"
+                    type="date"
+                    max={new Date().toISOString().split("T")[0]}
+                    value={form.state.values.financialStartDate}
+                    onChange={(e) => (form.state.values.financialStartDate = e.target.value)}
+                    className="h-12 text-base"
                   />
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="monthlyIncomeMax" className="text-xs">
-                  Maximum
-                </Label>
-                <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">
-                    {currencySymbol}
-                  </span>
-                  <Input
-                    id="monthlyIncomeMax"
-                    name="monthlyIncomeMax"
-                    type="number"
-                    min="0"
-                    step="0.01"
-                    placeholder="0.00"
-                    value={form.state.values.monthlyIncomeMax}
-                    onChange={(e) => (form.state.values.monthlyIncomeMax = e.target.value)}
-                    className="pl-7"
-                  />
+              <div className="space-y-4 p-6 bg-muted/30 rounded-lg border">
+                <div className="space-y-2">
+                  <Label className="text-base font-medium">Monthly Income Range (Optional)</Label>
+                  <p className="text-sm text-muted-foreground">
+                    This helps us provide more accurate budget recommendations and insights
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="monthlyIncomeMin" className="text-sm font-medium">
+                        Minimum
+                      </Label>
+                      <div className="relative">
+                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+                          {currencySymbol || "$"}
+                        </span>
+                        <Input
+                          id="monthlyIncomeMin"
+                          name="monthlyIncomeMin"
+                          type="number"
+                          min="0"
+                          step="0.01"
+                          placeholder="0.00"
+                          value={form.state.values.monthlyIncomeMin}
+                          onChange={(e) => (form.state.values.monthlyIncomeMin = e.target.value)}
+                          className="pl-7 h-12"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="monthlyIncomeMax" className="text-sm font-medium">
+                        Maximum
+                      </Label>
+                      <div className="relative">
+                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+                          {currencySymbol || "$"}
+                        </span>
+                        <Input
+                          id="monthlyIncomeMax"
+                          name="monthlyIncomeMax"
+                          type="number"
+                          min="0"
+                          step="0.01"
+                          placeholder="0.00"
+                          value={form.state.values.monthlyIncomeMax}
+                          onChange={(e) => (form.state.values.monthlyIncomeMax = e.target.value)}
+                          className="pl-7 h-12"
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
 
-          <Button type="submit" className="w-full">
-            Continue to Dashboard
-          </Button>
-        </form>
+              <div className="space-y-4 p-4 bg-primary/5 rounded-lg border border-primary/10">
+                <div className="flex items-start space-x-3">
+                  <Checkbox
+                    id="privacyOptIn"
+                    checked={form.state.values.privacyOptIn}
+                    onCheckedChange={(checked) => 
+                      (form.state.values.privacyOptIn = Boolean(checked))
+                    }
+                    className="mt-1"
+                  />
+                  <div className="space-y-1">
+                    <Label htmlFor="privacyOptIn" className="text-sm font-medium cursor-pointer">
+                      Help improve financial insights
+                    </Label>
+                    <p className="text-xs text-muted-foreground">
+                      Share anonymized spending patterns to get better budget recommendations. 
+                      You can opt out anytime. We never share your personal data.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <Button type="submit" size="lg" className="w-full h-12 text-base">
+                Continue to Goals
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
