@@ -1,15 +1,22 @@
 import 'dotenv/config';
 import { neon, neonConfig } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
-import { nanoid } from "nanoid";
+import { randomUUID } from "node:crypto";
 import ws from "ws";
 
 neonConfig.webSocketConstructor = ws;
 
-const databaseUrl = process.env.DATABASE_URL || 'postgresql://neondb_owner:npg_K3HbcCzUtDA8@ep-broad-dust-ajd571ds-pooler.c-3.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require';
+const databaseUrl = process.env.DATABASE_URL;
+if (!databaseUrl) {
+  throw new Error("DATABASE_URL is required");
+}
 
 const sql = neon(databaseUrl);
 const db = drizzle(sql);
+
+function createId() {
+  return randomUUID().replaceAll("-", "").slice(0, 10);
+}
 
 async function testDataInsertion() {
   try {
@@ -45,7 +52,7 @@ async function testDataInsertion() {
       await sql`
         INSERT INTO user_profile (id, user_id, currency, financial_start_date, created_at, updated_at)
         VALUES (
-          ${nanoid(10)}, 
+          ${createId()}, 
           ${testUserId}, 
           'USD', 
           '2024-01-01', 
@@ -64,7 +71,7 @@ async function testDataInsertion() {
       await sql`
         INSERT INTO category (id, user_id, name, type, created_at, updated_at)
         VALUES (
-          ${nanoid(10)}, 
+          ${createId()}, 
           ${testUserId}, 
           'Test Food Category', 
           'expense', 
@@ -83,7 +90,7 @@ async function testDataInsertion() {
       await sql`
         INSERT INTO financial_account (id, user_id, name, type, balance, created_at, updated_at)
         VALUES (
-          ${nanoid(10)}, 
+          ${createId()}, 
           ${testUserId}, 
           'Test Checking Account', 
           'checking', 
@@ -103,7 +110,7 @@ async function testDataInsertion() {
       await sql`
         INSERT INTO goal (id, user_id, name, type, target_amount, current_amount, target_date, status, created_at, updated_at)
         VALUES (
-          ${nanoid(10)}, 
+          ${createId()}, 
           ${testUserId}, 
           'Emergency Fund Goal', 
           'emergency_fund', 
@@ -126,7 +133,7 @@ async function testDataInsertion() {
       await sql`
         INSERT INTO financial_health_score (id, user_id, score, health_state, trend_direction, score_components, calculated_at)
         VALUES (
-          ${nanoid(10)}, 
+          ${createId()}, 
           ${testUserId}, 
           75, 
           'stable', 
@@ -146,7 +153,7 @@ async function testDataInsertion() {
       await sql`
         INSERT INTO insight (id, user_id, insight_type, severity, title, explanation, supporting_data, status, created_at, updated_at)
         VALUES (
-          ${nanoid(10)}, 
+          ${createId()}, 
           ${testUserId}, 
           'spending_spike', 
           'medium', 
@@ -175,7 +182,7 @@ async function testDataInsertion() {
       await sql`
         INSERT INTO task (id, user_id, title, description, task_type, priority, status, due_date, source_insight_id, created_at, updated_at)
         VALUES (
-          ${nanoid(10)}, 
+          ${createId()}, 
           ${testUserId}, 
           'Review Spending Categories', 
           'Review and categorize recent spending to understand the increase', 

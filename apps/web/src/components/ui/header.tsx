@@ -44,7 +44,7 @@ export function Header() {
   const paths = location.pathname.split("/").filter(Boolean);
 
   for (const path of paths) {
-    if (path === "dashboard" || path === "dboard") {
+    if (path === "dashboard" || path === "dboard" || path === "onboarding") {
       return null;
     }
   }

@@ -17,7 +17,7 @@ import appCss from "../index.css?url";
 import { Header } from "@/components/ui/header";
 import { Footer } from "@/components/ui/footer";
 
-export interface RouterAppContext {}
+export interface RouterAppContext { }
 
 export const Route = createRootRouteWithContext<RouterAppContext>()({
   head: () => ({
@@ -96,7 +96,10 @@ function RootComponent() {
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   const location = useLocation();
-  const isFullScreenRoute = location.pathname === "/dashboard" || location.pathname === "/5";
+  const isFullScreenRoute =
+    location.pathname === "/dashboard" ||
+    location.pathname === "/5" ||
+    location.pathname.startsWith("/onboarding");
 
   return (
     <html lang="en" suppressHydrationWarning>

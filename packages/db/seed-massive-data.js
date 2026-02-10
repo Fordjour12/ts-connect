@@ -1,15 +1,22 @@
 import 'dotenv/config';
 import { neon, neonConfig } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
-import { nanoid } from "nanoid";
+import { randomUUID } from "node:crypto";
 import ws from "ws";
 
 neonConfig.webSocketConstructor = ws;
 
-const databaseUrl = process.env.DATABASE_URL || 'postgresql://neondb_owner:npg_K3HbcCzUtDA8@ep-broad-dust-ajd571ds-pooler.c-3.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require';
+const databaseUrl = process.env.DATABASE_URL;
+if (!databaseUrl) {
+  throw new Error("DATABASE_URL is required");
+}
 
 const sql = neon(databaseUrl);
 const db = drizzle(sql);
+
+function createId() {
+  return randomUUID().replaceAll("-", "").slice(0, 10);
+}
 
 // Test user credentials
 const TEST_USER_EMAIL = 'testuser@example.com';
@@ -47,7 +54,7 @@ async function createTestUser() {
     await sql`
       INSERT INTO user_profile (id, user_id, currency, financial_start_date, monthly_income_min, monthly_income_max, privacy_mode, telemetry_opt_in, created_at, updated_at)
       VALUES (
-        ${nanoid(10)}, 
+        ${createId()}, 
         ${TEST_USER_ID}, 
         'USD', 
         '2023-01-01', 
@@ -91,7 +98,7 @@ async function createCategories() {
       await sql`
         INSERT INTO category (id, user_id, name, type, color, icon, is_system, created_at, updated_at)
         VALUES (
-          ${nanoid(10)}, 
+          ${createId()}, 
           ${TEST_USER_ID}, 
           ${category.name}, 
           ${category.type}, 
@@ -127,7 +134,7 @@ async function createAccounts() {
       await sql`
         INSERT INTO financial_account (id, user_id, name, type, balance, created_at, updated_at)
         VALUES (
-          ${nanoid(10)}, 
+          ${createId()}, 
           ${TEST_USER_ID}, 
           ${account.name}, 
           ${account.type}, 
@@ -214,7 +221,7 @@ async function createTransactions() {
       await sql`
         INSERT INTO transaction (id, user_id, account_id, amount, description, category_id, transaction_date, created_at, updated_at)
         VALUES (
-          ${nanoid(10)}, 
+          ${createId()}, 
           ${TEST_USER_ID}, 
           ${await getRandomAccountId()}, 
           ${transaction.amount}, 
@@ -253,7 +260,7 @@ async function createTransactions() {
       await sql`
         INSERT INTO transaction (id, user_id, account_id, amount, description, category_id, transaction_date, created_at, updated_at)
         VALUES (
-          ${nanoid(10)}, 
+          ${createId()}, 
           ${TEST_USER_ID}, 
           ${await getRandomAccountId()}, 
           ${transaction.amount}, 
@@ -347,7 +354,7 @@ async function createGoals() {
       await sql`
         INSERT INTO goal (id, user_id, name, type, target_amount, current_amount, target_date, status, created_at, updated_at)
         VALUES (
-          ${nanoid(10)}, 
+          ${createId()}, 
           ${TEST_USER_ID}, 
           ${goal.name}, 
           ${goal.type}, 
@@ -381,7 +388,7 @@ async function runHealthScoreCalculation() {
     await sql`
       INSERT INTO financial_health_score (id, user_id, score, health_state, trend_direction, score_components, calculated_at)
       VALUES (
-        ${nanoid(10)}, 
+        ${createId()}, 
         ${TEST_USER_ID}, 
         ${healthScore}, 
         ${healthStates[Math.floor(Math.random() * healthStates.length)]}, 

@@ -1,15 +1,22 @@
 import 'dotenv/config';
 import { neon, neonConfig } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
-import { nanoid } from "nanoid";
+import { randomUUID } from "node:crypto";
 import ws from "ws";
 
 neonConfig.webSocketConstructor = ws;
 
-const databaseUrl = process.env.DATABASE_URL || 'postgresql://neondb_owner:npg_K3HbcCzUtDA8@ep-broad-dust-ajd571ds-pooler.c-3.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require';
+const databaseUrl = process.env.DATABASE_URL;
+if (!databaseUrl) {
+  throw new Error("DATABASE_URL is required");
+}
 
 const sql = neon(databaseUrl);
 const db = drizzle(sql);
+
+function createId() {
+  return randomUUID().replaceAll("-", "").slice(0, 10);
+}
 
 const TEST_USER_ID = 'test-user-alex';
 
@@ -36,7 +43,7 @@ async function createBasicStructure() {
       await sql`
         INSERT INTO category (id, user_id, name, type, color, icon, is_system, created_at, updated_at)
         VALUES (
-          ${nanoid(10)}, 
+          ${createId()}, 
           ${TEST_USER_ID}, 
           ${category.name}, 
           ${category.type}, 
@@ -66,7 +73,7 @@ async function createBasicStructure() {
       await sql`
         INSERT INTO financial_account (id, user_id, name, type, balance, created_at, updated_at)
         VALUES (
-          ${nanoid(10)}, 
+          ${createId()}, 
           ${TEST_USER_ID}, 
           ${account.name}, 
           ${account.type}, 
@@ -180,7 +187,7 @@ async function createMassiveTransactions() {
       await sql`
         INSERT INTO transaction (id, user_id, account_id, amount, description, category_id, transaction_date, created_at, updated_at)
         VALUES (
-          ${nanoid(10)}, 
+          ${createId()}, 
           ${TEST_USER_ID}, 
           ${tx.account.id}, 
           ${tx.amount}, 

@@ -15,12 +15,12 @@ import { Route as DboardRouteImport } from './routes/dboard'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as R5RouteImport } from './routes/5'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as OnboardingWelcomeRouteImport } from './routes/onboarding/welcome'
-import { Route as OnboardingStep5RouteImport } from './routes/onboarding/step5'
-import { Route as OnboardingStep4RouteImport } from './routes/onboarding/step4'
-import { Route as OnboardingStep3RouteImport } from './routes/onboarding/step3'
-import { Route as OnboardingStep2RouteImport } from './routes/onboarding/step2'
-import { Route as OnboardingStep1RouteImport } from './routes/onboarding/step1'
+import { Route as OnboardingIndexRouteImport } from './routes/onboarding/index'
+import { Route as OnboardingLayoutRouteImport } from './routes/onboarding/_layout'
+import { Route as OnboardingLayoutStep5RouteImport } from './routes/onboarding/_layout/step5'
+import { Route as OnboardingLayoutStep4RouteImport } from './routes/onboarding/_layout/step4'
+import { Route as OnboardingLayoutStep3RouteImport } from './routes/onboarding/_layout/step3'
+import { Route as OnboardingLayoutStep2RouteImport } from './routes/onboarding/_layout/step2'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
 const SignupRoute = SignupRouteImport.update({
@@ -53,35 +53,35 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const OnboardingWelcomeRoute = OnboardingWelcomeRouteImport.update({
-  id: '/onboarding/welcome',
-  path: '/onboarding/welcome',
+const OnboardingIndexRoute = OnboardingIndexRouteImport.update({
+  id: '/onboarding/',
+  path: '/onboarding/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const OnboardingStep5Route = OnboardingStep5RouteImport.update({
-  id: '/onboarding/step5',
-  path: '/onboarding/step5',
+const OnboardingLayoutRoute = OnboardingLayoutRouteImport.update({
+  id: '/onboarding/_layout',
+  path: '/onboarding',
   getParentRoute: () => rootRouteImport,
 } as any)
-const OnboardingStep4Route = OnboardingStep4RouteImport.update({
-  id: '/onboarding/step4',
-  path: '/onboarding/step4',
-  getParentRoute: () => rootRouteImport,
+const OnboardingLayoutStep5Route = OnboardingLayoutStep5RouteImport.update({
+  id: '/step5',
+  path: '/step5',
+  getParentRoute: () => OnboardingLayoutRoute,
 } as any)
-const OnboardingStep3Route = OnboardingStep3RouteImport.update({
-  id: '/onboarding/step3',
-  path: '/onboarding/step3',
-  getParentRoute: () => rootRouteImport,
+const OnboardingLayoutStep4Route = OnboardingLayoutStep4RouteImport.update({
+  id: '/step4',
+  path: '/step4',
+  getParentRoute: () => OnboardingLayoutRoute,
 } as any)
-const OnboardingStep2Route = OnboardingStep2RouteImport.update({
-  id: '/onboarding/step2',
-  path: '/onboarding/step2',
-  getParentRoute: () => rootRouteImport,
+const OnboardingLayoutStep3Route = OnboardingLayoutStep3RouteImport.update({
+  id: '/step3',
+  path: '/step3',
+  getParentRoute: () => OnboardingLayoutRoute,
 } as any)
-const OnboardingStep1Route = OnboardingStep1RouteImport.update({
-  id: '/onboarding/step1',
-  path: '/onboarding/step1',
-  getParentRoute: () => rootRouteImport,
+const OnboardingLayoutStep2Route = OnboardingLayoutStep2RouteImport.update({
+  id: '/step2',
+  path: '/step2',
+  getParentRoute: () => OnboardingLayoutRoute,
 } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
@@ -96,13 +96,13 @@ export interface FileRoutesByFullPath {
   '/dboard': typeof DboardRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
-  '/onboarding/step1': typeof OnboardingStep1Route
-  '/onboarding/step2': typeof OnboardingStep2Route
-  '/onboarding/step3': typeof OnboardingStep3Route
-  '/onboarding/step4': typeof OnboardingStep4Route
-  '/onboarding/step5': typeof OnboardingStep5Route
-  '/onboarding/welcome': typeof OnboardingWelcomeRoute
+  '/onboarding': typeof OnboardingLayoutRouteWithChildren
+  '/onboarding/': typeof OnboardingIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/onboarding/step2': typeof OnboardingLayoutStep2Route
+  '/onboarding/step3': typeof OnboardingLayoutStep3Route
+  '/onboarding/step4': typeof OnboardingLayoutStep4Route
+  '/onboarding/step5': typeof OnboardingLayoutStep5Route
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -111,13 +111,12 @@ export interface FileRoutesByTo {
   '/dboard': typeof DboardRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
-  '/onboarding/step1': typeof OnboardingStep1Route
-  '/onboarding/step2': typeof OnboardingStep2Route
-  '/onboarding/step3': typeof OnboardingStep3Route
-  '/onboarding/step4': typeof OnboardingStep4Route
-  '/onboarding/step5': typeof OnboardingStep5Route
-  '/onboarding/welcome': typeof OnboardingWelcomeRoute
+  '/onboarding': typeof OnboardingIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/onboarding/step2': typeof OnboardingLayoutStep2Route
+  '/onboarding/step3': typeof OnboardingLayoutStep3Route
+  '/onboarding/step4': typeof OnboardingLayoutStep4Route
+  '/onboarding/step5': typeof OnboardingLayoutStep5Route
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -127,13 +126,13 @@ export interface FileRoutesById {
   '/dboard': typeof DboardRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
-  '/onboarding/step1': typeof OnboardingStep1Route
-  '/onboarding/step2': typeof OnboardingStep2Route
-  '/onboarding/step3': typeof OnboardingStep3Route
-  '/onboarding/step4': typeof OnboardingStep4Route
-  '/onboarding/step5': typeof OnboardingStep5Route
-  '/onboarding/welcome': typeof OnboardingWelcomeRoute
+  '/onboarding/_layout': typeof OnboardingLayoutRouteWithChildren
+  '/onboarding/': typeof OnboardingIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/onboarding/_layout/step2': typeof OnboardingLayoutStep2Route
+  '/onboarding/_layout/step3': typeof OnboardingLayoutStep3Route
+  '/onboarding/_layout/step4': typeof OnboardingLayoutStep4Route
+  '/onboarding/_layout/step5': typeof OnboardingLayoutStep5Route
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -144,13 +143,13 @@ export interface FileRouteTypes {
     | '/dboard'
     | '/login'
     | '/signup'
-    | '/onboarding/step1'
+    | '/onboarding'
+    | '/onboarding/'
+    | '/api/auth/$'
     | '/onboarding/step2'
     | '/onboarding/step3'
     | '/onboarding/step4'
     | '/onboarding/step5'
-    | '/onboarding/welcome'
-    | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -159,13 +158,12 @@ export interface FileRouteTypes {
     | '/dboard'
     | '/login'
     | '/signup'
-    | '/onboarding/step1'
+    | '/onboarding'
+    | '/api/auth/$'
     | '/onboarding/step2'
     | '/onboarding/step3'
     | '/onboarding/step4'
     | '/onboarding/step5'
-    | '/onboarding/welcome'
-    | '/api/auth/$'
   id:
     | '__root__'
     | '/'
@@ -174,13 +172,13 @@ export interface FileRouteTypes {
     | '/dboard'
     | '/login'
     | '/signup'
-    | '/onboarding/step1'
-    | '/onboarding/step2'
-    | '/onboarding/step3'
-    | '/onboarding/step4'
-    | '/onboarding/step5'
-    | '/onboarding/welcome'
+    | '/onboarding/_layout'
+    | '/onboarding/'
     | '/api/auth/$'
+    | '/onboarding/_layout/step2'
+    | '/onboarding/_layout/step3'
+    | '/onboarding/_layout/step4'
+    | '/onboarding/_layout/step5'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -190,12 +188,8 @@ export interface RootRouteChildren {
   DboardRoute: typeof DboardRoute
   LoginRoute: typeof LoginRoute
   SignupRoute: typeof SignupRoute
-  OnboardingStep1Route: typeof OnboardingStep1Route
-  OnboardingStep2Route: typeof OnboardingStep2Route
-  OnboardingStep3Route: typeof OnboardingStep3Route
-  OnboardingStep4Route: typeof OnboardingStep4Route
-  OnboardingStep5Route: typeof OnboardingStep5Route
-  OnboardingWelcomeRoute: typeof OnboardingWelcomeRoute
+  OnboardingLayoutRoute: typeof OnboardingLayoutRouteWithChildren
+  OnboardingIndexRoute: typeof OnboardingIndexRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
@@ -243,47 +237,47 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/onboarding/welcome': {
-      id: '/onboarding/welcome'
-      path: '/onboarding/welcome'
-      fullPath: '/onboarding/welcome'
-      preLoaderRoute: typeof OnboardingWelcomeRouteImport
+    '/onboarding/': {
+      id: '/onboarding/'
+      path: '/onboarding'
+      fullPath: '/onboarding/'
+      preLoaderRoute: typeof OnboardingIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/onboarding/step5': {
-      id: '/onboarding/step5'
-      path: '/onboarding/step5'
+    '/onboarding/_layout': {
+      id: '/onboarding/_layout'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof OnboardingLayoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding/_layout/step5': {
+      id: '/onboarding/_layout/step5'
+      path: '/step5'
       fullPath: '/onboarding/step5'
-      preLoaderRoute: typeof OnboardingStep5RouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof OnboardingLayoutStep5RouteImport
+      parentRoute: typeof OnboardingLayoutRoute
     }
-    '/onboarding/step4': {
-      id: '/onboarding/step4'
-      path: '/onboarding/step4'
+    '/onboarding/_layout/step4': {
+      id: '/onboarding/_layout/step4'
+      path: '/step4'
       fullPath: '/onboarding/step4'
-      preLoaderRoute: typeof OnboardingStep4RouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof OnboardingLayoutStep4RouteImport
+      parentRoute: typeof OnboardingLayoutRoute
     }
-    '/onboarding/step3': {
-      id: '/onboarding/step3'
-      path: '/onboarding/step3'
+    '/onboarding/_layout/step3': {
+      id: '/onboarding/_layout/step3'
+      path: '/step3'
       fullPath: '/onboarding/step3'
-      preLoaderRoute: typeof OnboardingStep3RouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof OnboardingLayoutStep3RouteImport
+      parentRoute: typeof OnboardingLayoutRoute
     }
-    '/onboarding/step2': {
-      id: '/onboarding/step2'
-      path: '/onboarding/step2'
+    '/onboarding/_layout/step2': {
+      id: '/onboarding/_layout/step2'
+      path: '/step2'
       fullPath: '/onboarding/step2'
-      preLoaderRoute: typeof OnboardingStep2RouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/onboarding/step1': {
-      id: '/onboarding/step1'
-      path: '/onboarding/step1'
-      fullPath: '/onboarding/step1'
-      preLoaderRoute: typeof OnboardingStep1RouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof OnboardingLayoutStep2RouteImport
+      parentRoute: typeof OnboardingLayoutRoute
     }
     '/api/auth/$': {
       id: '/api/auth/$'
@@ -295,6 +289,23 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface OnboardingLayoutRouteChildren {
+  OnboardingLayoutStep2Route: typeof OnboardingLayoutStep2Route
+  OnboardingLayoutStep3Route: typeof OnboardingLayoutStep3Route
+  OnboardingLayoutStep4Route: typeof OnboardingLayoutStep4Route
+  OnboardingLayoutStep5Route: typeof OnboardingLayoutStep5Route
+}
+
+const OnboardingLayoutRouteChildren: OnboardingLayoutRouteChildren = {
+  OnboardingLayoutStep2Route: OnboardingLayoutStep2Route,
+  OnboardingLayoutStep3Route: OnboardingLayoutStep3Route,
+  OnboardingLayoutStep4Route: OnboardingLayoutStep4Route,
+  OnboardingLayoutStep5Route: OnboardingLayoutStep5Route,
+}
+
+const OnboardingLayoutRouteWithChildren =
+  OnboardingLayoutRoute._addFileChildren(OnboardingLayoutRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   R5Route: R5Route,
@@ -302,12 +313,8 @@ const rootRouteChildren: RootRouteChildren = {
   DboardRoute: DboardRoute,
   LoginRoute: LoginRoute,
   SignupRoute: SignupRoute,
-  OnboardingStep1Route: OnboardingStep1Route,
-  OnboardingStep2Route: OnboardingStep2Route,
-  OnboardingStep3Route: OnboardingStep3Route,
-  OnboardingStep4Route: OnboardingStep4Route,
-  OnboardingStep5Route: OnboardingStep5Route,
-  OnboardingWelcomeRoute: OnboardingWelcomeRoute,
+  OnboardingLayoutRoute: OnboardingLayoutRouteWithChildren,
+  OnboardingIndexRoute: OnboardingIndexRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport
