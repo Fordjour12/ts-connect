@@ -1,4 +1,7 @@
+import { and, eq } from "drizzle-orm";
 import { createServerFn } from "@tanstack/react-start";
+import { db } from "@ts-connnect/db";
+import { insight } from "@ts-connnect/db/schema/financial";
 import { authMiddleware } from "@/middleware/auth";
 
 export const resolveInsight = createServerFn({ method: "POST" })
@@ -11,23 +14,37 @@ export const resolveInsight = createServerFn({ method: "POST" })
 
     const { insightId, action, notes } = data;
 
+    if (!insightId) {
+      throw new Error("Insight ID is required");
+    }
+
     try {
-      // TODO: Import and use insight management service
-      // await InsightManager.resolveInsight(session.user.id, insightId, action, notes);
-      
-      // Mock successful resolution
-      console.log(`Resolving insight ${insightId} with action: ${action}`);
-      
-      return { 
-        success: true, 
-        message: "Insight resolved successfully",
-        data: {
-          insightId,
-          status: "resolved",
-          resolvedAt: new Date(),
-          action,
-          notes
-        }
+      const status = action === "dismiss" ? "dismissed" : "resolved";
+
+      const updatePayload: Partial<typeof insight.$inferInsert> = {
+        status,
+        resolvedAt: new Date(),
+        updatedAt: new Date(),
+      };
+
+      if (notes) {
+        updatePayload.supportingData = { resolutionNotes: notes };
+      }
+
+      const [updatedInsight] = await db
+        .update(insight)
+        .set(updatePayload)
+        .where(and(eq(insight.id, insightId), eq(insight.userId, session.user.id)))
+        .returning();
+
+      if (!updatedInsight) {
+        throw new Error("Insight not found");
+      }
+
+      return {
+        success: true,
+        message: "Insight updated successfully",
+        data: updatedInsight,
       };
     } catch (error) {
       console.error("Error resolving insight:", error);

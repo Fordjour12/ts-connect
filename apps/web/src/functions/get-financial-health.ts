@@ -1,4 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
+import { FinancialHealthCalculator } from "@ts-connnect/db/services";
 import { authMiddleware } from "@/middleware/auth";
 
 export const getFinancialHealth = createServerFn({ method: "GET" })
@@ -10,25 +11,8 @@ export const getFinancialHealth = createServerFn({ method: "GET" })
     }
 
     try {
-      // TODO: Import and use FinancialHealthCalculator
-      // const healthScore = await FinancialHealthCalculator.calculateHealthScore(session.user.id);
-      
-      // Mock data for now
-      const mockHealthScore = {
-        score: 75,
-        healthState: "improving" as const,
-        trendDirection: "improving" as const,
-        components: {
-          savingsRate: 80,
-          budgetAdherence: 75,
-          incomeStability: 90,
-          expenseVolatility: 70,
-          goalProgress: 65
-        },
-        previousScore: 70
-      };
-
-      return { success: true, data: mockHealthScore };
+      const healthScore = await FinancialHealthCalculator.calculateHealthScore(session.user.id);
+      return { success: true, data: healthScore };
     } catch (error) {
       console.error("Error calculating financial health:", error);
       throw new Error("Failed to calculate financial health score");

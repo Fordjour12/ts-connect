@@ -1,4 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
+import { TaskManagementSystem } from "@ts-connnect/db/services";
 import { authMiddleware } from "@/middleware/auth";
 
 export const createTaskFromInsight = createServerFn({ method: "POST" })
@@ -9,30 +10,26 @@ export const createTaskFromInsight = createServerFn({ method: "POST" })
       throw new Error("Unauthorized");
     }
 
-    const { insightId, taskType, dueDate, priority } = data;
+    const { insightId, dueDate, priority, customTitle, customDescription } = data;
+
+    if (!insightId) {
+      throw new Error("Insight ID is required");
+    }
 
     try {
-      // TODO: Import and use task management service
-      // const task = await TaskManager.createTaskFromInsight(session.user.id, insightId, taskType, dueDate, priority);
-      
-      // Mock task creation
-      const mockTask = {
-        id: "task_" + Date.now(),
-        sourceInsightId: insightId,
-        title: "Review spending patterns",
-        description: "Review recent spending to identify areas for improvement based on insight",
-        taskType: taskType || "spending_review",
-        priority: priority || "medium",
-        status: "open",
-        dueDate: dueDate ? new Date(dueDate) : null,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      };
+      const task = await TaskManagementSystem.createTaskFromInsight(
+        session.user.id,
+        insightId,
+        customTitle,
+        customDescription,
+        dueDate ? new Date(dueDate) : undefined,
+        priority,
+      );
 
-      return { 
-        success: true, 
+      return {
+        success: true,
         message: "Task created successfully",
-        data: mockTask
+        data: task,
       };
     } catch (error) {
       console.error("Error creating task from insight:", error);
