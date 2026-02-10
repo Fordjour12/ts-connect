@@ -9,45 +9,20 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SignupRouteImport } from './routes/signup'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as DboardRouteImport } from './routes/dboard'
-import { Route as DashboardRouteImport } from './routes/dashboard'
-import { Route as R5RouteImport } from './routes/5'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as OnboardingIndexRouteImport } from './routes/onboarding/index'
 import { Route as OnboardingLayoutRouteImport } from './routes/onboarding/_layout'
+import { Route as DashboardLayoutRouteImport } from './routes/dashboard/_layout'
+import { Route as AuthLayoutRouteImport } from './routes/auth/_layout'
+import { Route as DashboardLayoutIndexRouteImport } from './routes/dashboard/_layout/index'
 import { Route as OnboardingLayoutStep5RouteImport } from './routes/onboarding/_layout/step5'
 import { Route as OnboardingLayoutStep4RouteImport } from './routes/onboarding/_layout/step4'
 import { Route as OnboardingLayoutStep3RouteImport } from './routes/onboarding/_layout/step3'
 import { Route as OnboardingLayoutStep2RouteImport } from './routes/onboarding/_layout/step2'
+import { Route as AuthLayoutLoginRouteImport } from './routes/auth/_layout/login'
+import { Route as AuthLayoutCreateRouteImport } from './routes/auth/_layout/create'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
-const SignupRoute = SignupRouteImport.update({
-  id: '/signup',
-  path: '/signup',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DboardRoute = DboardRouteImport.update({
-  id: '/dboard',
-  path: '/dboard',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardRoute = DashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const R5Route = R5RouteImport.update({
-  id: '/5',
-  path: '/5',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -62,6 +37,21 @@ const OnboardingLayoutRoute = OnboardingLayoutRouteImport.update({
   id: '/onboarding/_layout',
   path: '/onboarding',
   getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardLayoutRoute = DashboardLayoutRouteImport.update({
+  id: '/dashboard/_layout',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthLayoutRoute = AuthLayoutRouteImport.update({
+  id: '/auth/_layout',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardLayoutIndexRoute = DashboardLayoutIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DashboardLayoutRoute,
 } as any)
 const OnboardingLayoutStep5Route = OnboardingLayoutStep5RouteImport.update({
   id: '/step5',
@@ -83,6 +73,16 @@ const OnboardingLayoutStep2Route = OnboardingLayoutStep2RouteImport.update({
   path: '/step2',
   getParentRoute: () => OnboardingLayoutRoute,
 } as any)
+const AuthLayoutLoginRoute = AuthLayoutLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => AuthLayoutRoute,
+} as any)
+const AuthLayoutCreateRoute = AuthLayoutCreateRouteImport.update({
+  id: '/create',
+  path: '/create',
+  getParentRoute: () => AuthLayoutRoute,
+} as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
@@ -91,103 +91,98 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/5': typeof R5Route
-  '/dashboard': typeof DashboardRoute
-  '/dboard': typeof DboardRoute
-  '/login': typeof LoginRoute
-  '/signup': typeof SignupRoute
+  '/auth': typeof AuthLayoutRouteWithChildren
+  '/dashboard': typeof DashboardLayoutRouteWithChildren
   '/onboarding': typeof OnboardingLayoutRouteWithChildren
   '/onboarding/': typeof OnboardingIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/auth/create': typeof AuthLayoutCreateRoute
+  '/auth/login': typeof AuthLayoutLoginRoute
   '/onboarding/step2': typeof OnboardingLayoutStep2Route
   '/onboarding/step3': typeof OnboardingLayoutStep3Route
   '/onboarding/step4': typeof OnboardingLayoutStep4Route
   '/onboarding/step5': typeof OnboardingLayoutStep5Route
+  '/dashboard/': typeof DashboardLayoutIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/5': typeof R5Route
-  '/dashboard': typeof DashboardRoute
-  '/dboard': typeof DboardRoute
-  '/login': typeof LoginRoute
-  '/signup': typeof SignupRoute
+  '/auth': typeof AuthLayoutRouteWithChildren
   '/onboarding': typeof OnboardingIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/auth/create': typeof AuthLayoutCreateRoute
+  '/auth/login': typeof AuthLayoutLoginRoute
   '/onboarding/step2': typeof OnboardingLayoutStep2Route
   '/onboarding/step3': typeof OnboardingLayoutStep3Route
   '/onboarding/step4': typeof OnboardingLayoutStep4Route
   '/onboarding/step5': typeof OnboardingLayoutStep5Route
+  '/dashboard': typeof DashboardLayoutIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/5': typeof R5Route
-  '/dashboard': typeof DashboardRoute
-  '/dboard': typeof DboardRoute
-  '/login': typeof LoginRoute
-  '/signup': typeof SignupRoute
+  '/auth/_layout': typeof AuthLayoutRouteWithChildren
+  '/dashboard/_layout': typeof DashboardLayoutRouteWithChildren
   '/onboarding/_layout': typeof OnboardingLayoutRouteWithChildren
   '/onboarding/': typeof OnboardingIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/auth/_layout/create': typeof AuthLayoutCreateRoute
+  '/auth/_layout/login': typeof AuthLayoutLoginRoute
   '/onboarding/_layout/step2': typeof OnboardingLayoutStep2Route
   '/onboarding/_layout/step3': typeof OnboardingLayoutStep3Route
   '/onboarding/_layout/step4': typeof OnboardingLayoutStep4Route
   '/onboarding/_layout/step5': typeof OnboardingLayoutStep5Route
+  '/dashboard/_layout/': typeof DashboardLayoutIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/5'
+    | '/auth'
     | '/dashboard'
-    | '/dboard'
-    | '/login'
-    | '/signup'
     | '/onboarding'
     | '/onboarding/'
     | '/api/auth/$'
+    | '/auth/create'
+    | '/auth/login'
     | '/onboarding/step2'
     | '/onboarding/step3'
     | '/onboarding/step4'
     | '/onboarding/step5'
+    | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/5'
-    | '/dashboard'
-    | '/dboard'
-    | '/login'
-    | '/signup'
+    | '/auth'
     | '/onboarding'
     | '/api/auth/$'
+    | '/auth/create'
+    | '/auth/login'
     | '/onboarding/step2'
     | '/onboarding/step3'
     | '/onboarding/step4'
     | '/onboarding/step5'
+    | '/dashboard'
   id:
     | '__root__'
     | '/'
-    | '/5'
-    | '/dashboard'
-    | '/dboard'
-    | '/login'
-    | '/signup'
+    | '/auth/_layout'
+    | '/dashboard/_layout'
     | '/onboarding/_layout'
     | '/onboarding/'
     | '/api/auth/$'
+    | '/auth/_layout/create'
+    | '/auth/_layout/login'
     | '/onboarding/_layout/step2'
     | '/onboarding/_layout/step3'
     | '/onboarding/_layout/step4'
     | '/onboarding/_layout/step5'
+    | '/dashboard/_layout/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  R5Route: typeof R5Route
-  DashboardRoute: typeof DashboardRoute
-  DboardRoute: typeof DboardRoute
-  LoginRoute: typeof LoginRoute
-  SignupRoute: typeof SignupRoute
+  AuthLayoutRoute: typeof AuthLayoutRouteWithChildren
+  DashboardLayoutRoute: typeof DashboardLayoutRouteWithChildren
   OnboardingLayoutRoute: typeof OnboardingLayoutRouteWithChildren
   OnboardingIndexRoute: typeof OnboardingIndexRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
@@ -195,41 +190,6 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/signup': {
-      id: '/signup'
-      path: '/signup'
-      fullPath: '/signup'
-      preLoaderRoute: typeof SignupRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dboard': {
-      id: '/dboard'
-      path: '/dboard'
-      fullPath: '/dboard'
-      preLoaderRoute: typeof DboardRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard': {
-      id: '/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/5': {
-      id: '/5'
-      path: '/5'
-      fullPath: '/5'
-      preLoaderRoute: typeof R5RouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -250,6 +210,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/onboarding'
       preLoaderRoute: typeof OnboardingLayoutRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/_layout': {
+      id: '/dashboard/_layout'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardLayoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/_layout': {
+      id: '/auth/_layout'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthLayoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/_layout/': {
+      id: '/dashboard/_layout/'
+      path: '/'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof DashboardLayoutIndexRouteImport
+      parentRoute: typeof DashboardLayoutRoute
     }
     '/onboarding/_layout/step5': {
       id: '/onboarding/_layout/step5'
@@ -279,6 +260,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OnboardingLayoutStep2RouteImport
       parentRoute: typeof OnboardingLayoutRoute
     }
+    '/auth/_layout/login': {
+      id: '/auth/_layout/login'
+      path: '/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof AuthLayoutLoginRouteImport
+      parentRoute: typeof AuthLayoutRoute
+    }
+    '/auth/_layout/create': {
+      id: '/auth/_layout/create'
+      path: '/create'
+      fullPath: '/auth/create'
+      preLoaderRoute: typeof AuthLayoutCreateRouteImport
+      parentRoute: typeof AuthLayoutRoute
+    }
     '/api/auth/$': {
       id: '/api/auth/$'
       path: '/api/auth/$'
@@ -288,6 +283,32 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface AuthLayoutRouteChildren {
+  AuthLayoutCreateRoute: typeof AuthLayoutCreateRoute
+  AuthLayoutLoginRoute: typeof AuthLayoutLoginRoute
+}
+
+const AuthLayoutRouteChildren: AuthLayoutRouteChildren = {
+  AuthLayoutCreateRoute: AuthLayoutCreateRoute,
+  AuthLayoutLoginRoute: AuthLayoutLoginRoute,
+}
+
+const AuthLayoutRouteWithChildren = AuthLayoutRoute._addFileChildren(
+  AuthLayoutRouteChildren,
+)
+
+interface DashboardLayoutRouteChildren {
+  DashboardLayoutIndexRoute: typeof DashboardLayoutIndexRoute
+}
+
+const DashboardLayoutRouteChildren: DashboardLayoutRouteChildren = {
+  DashboardLayoutIndexRoute: DashboardLayoutIndexRoute,
+}
+
+const DashboardLayoutRouteWithChildren = DashboardLayoutRoute._addFileChildren(
+  DashboardLayoutRouteChildren,
+)
 
 interface OnboardingLayoutRouteChildren {
   OnboardingLayoutStep2Route: typeof OnboardingLayoutStep2Route
@@ -308,11 +329,8 @@ const OnboardingLayoutRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  R5Route: R5Route,
-  DashboardRoute: DashboardRoute,
-  DboardRoute: DboardRoute,
-  LoginRoute: LoginRoute,
-  SignupRoute: SignupRoute,
+  AuthLayoutRoute: AuthLayoutRouteWithChildren,
+  DashboardLayoutRoute: DashboardLayoutRouteWithChildren,
   OnboardingLayoutRoute: OnboardingLayoutRouteWithChildren,
   OnboardingIndexRoute: OnboardingIndexRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
