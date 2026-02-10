@@ -14,7 +14,7 @@ export const getInsights = createServerFn({ method: "GET" })
     }
 
     try {
-      await SignalDetectionEngine.generateSignals(session.user.id);
+      SignalDetectionEngine.triggerSignalRefresh(session.user.id);
 
       const insights = await db
         .select()

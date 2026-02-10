@@ -19,6 +19,16 @@ export const resolveInsight = createServerFn({ method: "POST" })
     }
 
     try {
+      const [existingInsight] = await db
+        .select()
+        .from(insight)
+        .where(and(eq(insight.id, insightId), eq(insight.userId, session.user.id)))
+        .limit(1);
+
+      if (!existingInsight) {
+        throw new Error("Insight not found");
+      }
+
       const status = action === "dismiss" ? "dismissed" : "resolved";
 
       const updatePayload: Partial<typeof insight.$inferInsert> = {
@@ -28,7 +38,14 @@ export const resolveInsight = createServerFn({ method: "POST" })
       };
 
       if (notes) {
-        updatePayload.supportingData = { resolutionNotes: notes };
+        const mergedSupportingData = {
+          ...(existingInsight.supportingData && typeof existingInsight.supportingData === "object"
+            ? existingInsight.supportingData
+            : {}),
+          resolutionNotes: notes,
+        };
+
+        updatePayload.supportingData = mergedSupportingData;
       }
 
       const [updatedInsight] = await db
@@ -48,6 +65,9 @@ export const resolveInsight = createServerFn({ method: "POST" })
       };
     } catch (error) {
       console.error("Error resolving insight:", error);
+      if (error instanceof Error && error.message === "Insight not found") {
+        throw error;
+      }
       throw new Error("Failed to resolve insight");
     }
   });

@@ -40,7 +40,7 @@ Start v1 by replacing mocked financial intelligence flows with real data-backed 
 
 1. Health score endpoint returns calculated score/components from DB services.
 2. Period summary endpoint returns current month vs previous month metrics and trend labels.
-3. Insight endpoint triggers signal generation then returns active insights for the user.
+3. Insight endpoint returns active insights and only triggers non-blocking, stale-guarded refresh (no per-request synchronous generation).
 4. Resolve endpoint updates insight status (`resolved`/`dismissed`) with ownership checks.
 5. Task endpoint creates a task from an insight using task management service.
 
@@ -60,5 +60,5 @@ Start v1 by replacing mocked financial intelligence flows with real data-backed 
 
 - Risk: sparse transaction data can generate weak/empty signals.
   - Mitigation: graceful empty state and conservative thresholds.
-- Risk: repeated insight generation could duplicate records.
-  - Mitigation: rely on signal engine dedupe behavior and validate in follow-up tests.
+- Risk: repeated insight generation could duplicate records or increase latency.
+  - Mitigation: keep generation off the request critical path and use staleness guard + in-process lock to prevent parallel/over-frequent runs.
