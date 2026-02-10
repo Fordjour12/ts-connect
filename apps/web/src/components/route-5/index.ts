@@ -5,6 +5,7 @@ export { ScoreBar } from "./ScoreBar";
 export { InsightRow } from "./InsightRow";
 export { TodoRow } from "./TodoRow";
 export { ResourceRow } from "./ResourceRow";
+export { HealthScoreChart } from "./HealthScoreChart";
 
 // Export data
 export {

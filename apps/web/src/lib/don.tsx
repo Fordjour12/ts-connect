@@ -1,6 +1,5 @@
-"use client"
 
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router"
 import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
@@ -28,7 +27,23 @@ import {
   ResourceRow,
 } from "@/components/route-5";
 
-export const Route = createFileRoute("/5")({
+
+/* export const Route = createFileRoute("/dashboard")({
+  component: RouteComponent,
+  loader: async () => {
+    const session = await getUser();
+    return { session };
+  },
+});
+
+function RouteComponent() {
+  const { session } = Route.useLoaderData();
+  const firstName = session?.user.name?.split(" ")[0] ?? "there";
+
+*/
+
+
+export const Route = createFileRoute("/dashboard/")({
   component: RouteComponent,
 });
 

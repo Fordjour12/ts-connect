@@ -97,9 +97,9 @@ function RootComponent() {
 function RootDocument({ children }: { children: React.ReactNode }) {
   const location = useLocation();
   const isFullScreenRoute =
-    location.pathname === "/dashboard" ||
-    location.pathname === "/5" ||
-    location.pathname.startsWith("/onboarding");
+    location.pathname.startsWith("/dashboard") ||
+    location.pathname.startsWith("/onboarding") ||
+    location.pathname.startsWith("/auth");
 
   return (
     <html lang="en" suppressHydrationWarning>
