@@ -16,8 +16,7 @@ import {
 } from "@/components/ui/sidebar"
 
 
-import { Badge } from "@/components/ui/badge";
-import { TrendingUp } from 'lucide-react';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
 export const Route = createFileRoute('/dashboard/_layout')({
   component: RouteComponent,
@@ -28,23 +27,29 @@ function RouteComponent() {
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
-          <SidebarTrigger className="-ml-1" />
-          <Separator
-            orientation="vertical"
-            className="mr-2 data-[orientation=vertical]:h-4"
-          />
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem className="hidden md:block">
-                <BreadcrumbLink href="#">Overview</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator className="hidden md:block" />
-              <BreadcrumbItem>
-                <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
+        <header className="flex items-center h-16 shrink-0 justify-between gap-2 border-b px-4">
+          <div className='flex items-center align-middle'>
+            <SidebarTrigger className="-ml-1" />
+            <Separator
+              orientation="vertical"
+              className="mr-2 data-[orientation=vertical]:h-4"
+            />
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem className="hidden md:block">
+                  <BreadcrumbLink href="#">Overview</BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator className="hidden md:block" />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+          </div>
+          <Avatar>
+            <AvatarImage src="https://github.com/shadcn.png" />
+            <AvatarFallback>SC</AvatarFallback>
+          </Avatar>
         </header>
         <main>
           <Outlet />

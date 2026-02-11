@@ -1,5 +1,3 @@
-"use client";
-
 import { GalleryVerticalEnd } from "lucide-react";
 import { useForm } from "@tanstack/react-form";
 import { Link, useNavigate } from "@tanstack/react-router";
@@ -8,10 +6,9 @@ import z from "zod";
 
 import { authClient } from "@/lib/auth-client";
 import Loader from "./loader";
-import { Button } from "./ui/button";
-import { Form } from "./ui/form";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 const signUpSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -62,11 +59,12 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
         </p>
       </div>
 
-      <Form
+
+
+      <form
         onSubmit={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          form.handleSubmit();
+          e.preventDefault()
+          form.handleSubmit()
         }}
       >
         <div className="flex flex-col gap-4">
@@ -180,7 +178,7 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
             <a href="#" className="hover:text-primary">Privacy Policy</a>.
           </p>
         </div>
-      </Form>
-    </div>
+      </form>
+    </div >
   );
 }
