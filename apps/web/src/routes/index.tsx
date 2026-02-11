@@ -163,7 +163,7 @@ function HomeComponent() {
         </section>
 
         <section className="relative mb-24 overflow-hidden rounded-3xl border border-border/70 bg-card p-6 sm:p-10">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_-20%,rgba(255,255,255,0.12),transparent_55%)]" />
+          <div className="absolute inset-0 bg-gradient-to-br from-muted/35 via-transparent to-transparent" />
           <div className="relative mb-8">
             <span className="text-xs tracking-[0.12em] uppercase text-muted-foreground">
               How It Works
@@ -175,114 +175,114 @@ function HomeComponent() {
           </div>
 
           <div className="relative grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-12">
-            <article className="group relative overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-100 p-5 shadow-[0_20px_40px_-26px_rgba(0,0,0,0.8)] transition-all duration-300 hover:-translate-y-1 sm:col-span-1 lg:col-span-4">
-              <p className="text-lg font-semibold text-zinc-900">Track</p>
-              <p className="mt-1 text-sm leading-relaxed text-zinc-700">
+            <article className="group relative overflow-hidden rounded-2xl border border-border bg-secondary/35 p-5 shadow-md transition-all duration-300 hover:-translate-y-1 sm:col-span-1 lg:col-span-4">
+              <p className="text-lg font-semibold text-foreground">Track</p>
+              <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
                 Connect accounts and log transactions automatically.
               </p>
-              <div className="mt-5 rounded-xl border border-zinc-200 bg-white p-3">
-                <div className="mb-3 h-2 w-20 rounded-full bg-zinc-200" />
+              <div className="mt-5 rounded-xl border border-border bg-card p-3">
+                <div className="mb-3 h-2 w-20 rounded-full bg-muted" />
                 <div className="space-y-2">
-                  <div className="flex items-center justify-between rounded-md border border-zinc-200 bg-zinc-50 px-2 py-1.5">
-                    <span className="text-xs text-zinc-600">Checking</span>
-                    <span className="text-xs font-medium text-zinc-900">$4,320</span>
+                  <div className="flex items-center justify-between rounded-md border border-border bg-muted/60 px-2 py-1.5">
+                    <span className="text-xs text-muted-foreground">Checking</span>
+                    <span className="text-xs font-medium text-foreground">$4,320</span>
                   </div>
-                  <div className="flex items-center justify-between rounded-md border border-zinc-200 bg-zinc-50 px-2 py-1.5">
-                    <span className="text-xs text-zinc-600">Savings</span>
-                    <span className="text-xs font-medium text-zinc-900">$9,110</span>
+                  <div className="flex items-center justify-between rounded-md border border-border bg-muted/60 px-2 py-1.5">
+                    <span className="text-xs text-muted-foreground">Savings</span>
+                    <span className="text-xs font-medium text-foreground">$9,110</span>
                   </div>
-                  <div className="h-16 rounded-md border border-zinc-200 bg-[linear-gradient(90deg,rgba(24,24,27,0.06)_1px,transparent_1px)] bg-[length:12px_100%]" />
+                  <div className="h-16 rounded-md border border-border bg-[linear-gradient(90deg,var(--border)_1px,transparent_1px)] bg-[length:12px_100%]" />
                 </div>
               </div>
             </article>
 
-            <article className="group relative overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-100 p-5 shadow-[0_20px_40px_-26px_rgba(0,0,0,0.8)] transition-all duration-300 hover:-translate-y-1 sm:col-span-1 lg:col-span-4">
-              <p className="text-lg font-semibold text-zinc-900">Detect</p>
-              <p className="mt-1 text-sm leading-relaxed text-zinc-700">
+            <article className="group relative overflow-hidden rounded-2xl border border-border bg-secondary/35 p-5 shadow-md transition-all duration-300 hover:-translate-y-1 sm:col-span-1 lg:col-span-4">
+              <p className="text-lg font-semibold text-foreground">Detect</p>
+              <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
                 We spot patterns and early warning signs.
               </p>
-              <div className="mt-5 rounded-xl border border-zinc-200 bg-white p-3">
+              <div className="mt-5 rounded-xl border border-border bg-card p-3">
                 <div className="grid min-h-40 grid-cols-5 gap-2">
-                  <div className="col-span-3 rounded-lg bg-[repeating-linear-gradient(90deg,rgba(24,24,27,0.05)_0_1px,transparent_1px_10px)]" />
+                  <div className="col-span-3 rounded-lg bg-[repeating-linear-gradient(90deg,var(--border)_0_1px,transparent_1px_10px)]" />
                   <div className="col-span-2 space-y-2">
-                    <div className="h-7 rounded-md border border-zinc-200 bg-zinc-50" />
-                    <div className="h-7 rounded-md border border-zinc-200 bg-zinc-50" />
-                    <div className="h-7 rounded-md border border-zinc-200 bg-zinc-50" />
+                    <div className="h-7 rounded-md border border-border bg-muted/60" />
+                    <div className="h-7 rounded-md border border-border bg-muted/60" />
+                    <div className="h-7 rounded-md border border-border bg-muted/60" />
                   </div>
                 </div>
               </div>
             </article>
 
-            <article className="group relative overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-100 p-5 shadow-[0_20px_40px_-26px_rgba(0,0,0,0.8)] transition-all duration-300 hover:-translate-y-1 sm:col-span-2 lg:col-span-4">
-              <p className="text-lg font-semibold text-zinc-900">Explain</p>
-              <p className="mt-1 text-sm leading-relaxed text-zinc-700">
+            <article className="group relative overflow-hidden rounded-2xl border border-border bg-secondary/35 p-5 shadow-md transition-all duration-300 hover:-translate-y-1 sm:col-span-2 lg:col-span-4">
+              <p className="text-lg font-semibold text-foreground">Explain</p>
+              <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
                 AI tells you why your financial picture changed.
               </p>
-              <div className="mt-5 rounded-xl border border-zinc-200 bg-white p-3">
+              <div className="mt-5 rounded-xl border border-border bg-card p-3">
                 <div className="space-y-2">
-                  <div className="h-7 w-2/3 rounded-md bg-zinc-200" />
-                  <div className="h-7 rounded-md border border-zinc-200 bg-zinc-50" />
-                  <div className="h-7 rounded-md border border-zinc-200 bg-zinc-50" />
-                  <div className="h-7 w-5/6 rounded-md border border-zinc-200 bg-zinc-50" />
-                  <div className="h-20 rounded-md border border-zinc-200 bg-zinc-50" />
+                  <div className="h-7 w-2/3 rounded-md bg-muted" />
+                  <div className="h-7 rounded-md border border-border bg-muted/60" />
+                  <div className="h-7 rounded-md border border-border bg-muted/60" />
+                  <div className="h-7 w-5/6 rounded-md border border-border bg-muted/60" />
+                  <div className="h-20 rounded-md border border-border bg-muted/60" />
                 </div>
               </div>
             </article>
 
-            <article className="group relative overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-100 p-5 shadow-[0_24px_44px_-28px_rgba(0,0,0,0.85)] transition-all duration-300 hover:-translate-y-1 sm:col-span-2 lg:col-span-5">
-              <p className="text-lg font-semibold text-zinc-900">Suggest</p>
-              <p className="mt-1 text-sm leading-relaxed text-zinc-700">
+            <article className="group relative overflow-hidden rounded-2xl border border-border bg-secondary/35 p-5 shadow-md transition-all duration-300 hover:-translate-y-1 sm:col-span-2 lg:col-span-5">
+              <p className="text-lg font-semibold text-foreground">Suggest</p>
+              <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
                 Practical, safe recommendations for your next steps.
               </p>
-              <div className="relative mt-5 rounded-xl border border-zinc-200 bg-white p-4">
-                <div className="absolute top-3 right-3 rounded-full bg-zinc-900 px-2 py-0.5 text-[10px] tracking-wide text-white uppercase">
+              <div className="relative mt-5 rounded-xl border border-border bg-card p-4">
+                <div className="absolute top-3 right-3 rounded-full bg-foreground px-2 py-0.5 text-[10px] tracking-wide text-background uppercase">
                   Safe mode
                 </div>
                 <div className="grid grid-cols-2 gap-3">
-                  <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-3">
-                    <p className="text-xs text-zinc-600">Trim dining budget</p>
-                    <div className="mt-2 h-2 w-full rounded-full bg-zinc-200">
-                      <div className="h-2 w-2/3 rounded-full bg-zinc-900" />
+                  <div className="rounded-lg border border-border bg-muted/60 p-3">
+                    <p className="text-xs text-muted-foreground">Trim dining budget</p>
+                    <div className="mt-2 h-2 w-full rounded-full bg-muted">
+                      <div className="h-2 w-2/3 rounded-full bg-foreground" />
                     </div>
                   </div>
-                  <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-3">
-                    <p className="text-xs text-zinc-600">Move to emergency fund</p>
-                    <div className="mt-2 h-2 w-full rounded-full bg-zinc-200">
-                      <div className="h-2 w-1/2 rounded-full bg-zinc-600" />
+                  <div className="rounded-lg border border-border bg-muted/60 p-3">
+                    <p className="text-xs text-muted-foreground">Move to emergency fund</p>
+                    <div className="mt-2 h-2 w-full rounded-full bg-muted">
+                      <div className="h-2 w-1/2 rounded-full bg-muted-foreground/70" />
                     </div>
                   </div>
                 </div>
-                <div className="mt-3 rounded-md border border-zinc-200 bg-zinc-50 px-3 py-2 text-sm text-zinc-600">
+                <div className="mt-3 rounded-md border border-border bg-muted/60 px-3 py-2 text-sm text-muted-foreground">
                   Priority this week: one change, low effort.
                 </div>
               </div>
             </article>
 
-            <article className="group relative overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-100 p-5 shadow-[0_24px_44px_-28px_rgba(0,0,0,0.85)] transition-all duration-300 hover:-translate-y-1 sm:col-span-2 lg:col-span-7">
-              <p className="text-lg font-semibold text-zinc-900">Apply + Adapt</p>
-              <p className="mt-1 text-sm leading-relaxed text-zinc-700">
+            <article className="group relative overflow-hidden rounded-2xl border border-border bg-secondary/35 p-5 shadow-md transition-all duration-300 hover:-translate-y-1 sm:col-span-2 lg:col-span-7">
+              <p className="text-lg font-semibold text-foreground">Apply + Adapt</p>
+              <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
                 One click to act, then the plan adjusts to real life.
               </p>
-              <div className="mt-5 rounded-xl border border-zinc-200 bg-white p-4">
-                <div className="flex items-center justify-between rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2">
-                  <span className="text-xs text-zinc-600">Autopilot suggestion</span>
-                  <span className="rounded-full bg-zinc-900 px-2 py-0.5 text-xs text-white">
+              <div className="mt-5 rounded-xl border border-border bg-card p-4">
+                <div className="flex items-center justify-between rounded-lg border border-border bg-muted/60 px-3 py-2">
+                  <span className="text-xs text-muted-foreground">Autopilot suggestion</span>
+                  <span className="rounded-full bg-foreground px-2 py-0.5 text-xs text-background">
                     Applied
                   </span>
                 </div>
                 <div className="mt-3 space-y-2">
-                  <div className="h-3 w-full rounded-full bg-zinc-200">
-                    <div className="h-3 w-[72%] rounded-full bg-zinc-900" />
+                  <div className="h-3 w-full rounded-full bg-muted">
+                    <div className="h-3 w-[72%] rounded-full bg-foreground" />
                   </div>
-                  <div className="h-3 w-full rounded-full bg-zinc-200">
-                    <div className="h-3 w-[48%] rounded-full bg-zinc-600" />
+                  <div className="h-3 w-full rounded-full bg-muted">
+                    <div className="h-3 w-[48%] rounded-full bg-muted-foreground/70" />
                   </div>
                 </div>
                 <div className="mt-3 grid gap-2 sm:grid-cols-2">
-                  <div className="rounded-md border border-zinc-200 bg-zinc-50 px-3 py-2 text-xs text-zinc-600">
+                  <div className="rounded-md border border-border bg-muted/60 px-3 py-2 text-xs text-muted-foreground">
                     Tough month detected: pressure reduced.
                   </div>
-                  <div className="rounded-md border border-zinc-200 bg-zinc-50 px-3 py-2 text-xs text-zinc-600">
+                  <div className="rounded-md border border-border bg-muted/60 px-3 py-2 text-xs text-muted-foreground">
                     Targets rebalanced for consistency.
                   </div>
                 </div>

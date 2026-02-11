@@ -85,8 +85,23 @@ export function Header() {
               {link.label}
             </a>
           ))}*/}
-          <Button variant="outline">Sign In</Button>
-          <Button>Get Started</Button>
+
+          <Button
+            render={<Link to="/auth/login" />}
+            variant="outline"
+            className="shrink-0 bg-success/20 text-success hover:bg-success/30"
+          >
+            Sign In
+          </Button>
+
+          <Button
+            render={<Link to="/auth/create" />}
+            variant="outline"
+            className="shrink-0 bg-success/20 text-success hover:bg-success/30"
+          >
+            Get Started
+          </Button>
+
         </div>
         <Button
           size="icon"
