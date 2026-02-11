@@ -68,7 +68,7 @@ export class TaskManagementSystem {
     const [insightData] = await db
       .select()
       .from(insight)
-      .where(eq(insight.id, insightId))
+      .where(and(eq(insight.id, insightId), eq(insight.userId, userId)))
       .limit(1);
 
     if (!insightData) {

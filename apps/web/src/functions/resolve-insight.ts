@@ -29,7 +29,7 @@ export const resolveInsight = createServerFn({ method: "POST" })
         throw new Error("Insight not found");
       }
 
-      const status = action === "dismiss" ? "dismissed" : "resolved";
+      const status = action === "dismissed" ? "dismissed" : "resolved";
 
       const updatePayload: Partial<typeof insight.$inferInsert> = {
         status,
@@ -58,10 +58,15 @@ export const resolveInsight = createServerFn({ method: "POST" })
         throw new Error("Insight not found");
       }
 
+      const mappedInsight = {
+        ...updatedInsight,
+        type: updatedInsight.insightType,
+      };
+
       return {
         success: true,
         message: "Insight updated successfully",
-        data: updatedInsight,
+        data: mappedInsight,
       };
     } catch (error) {
       console.error("Error resolving insight:", error);

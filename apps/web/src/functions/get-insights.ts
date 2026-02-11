@@ -23,7 +23,12 @@ export const getInsights = createServerFn({ method: "GET" })
         .orderBy(desc(insight.severity), desc(insight.createdAt))
         .limit(25);
 
-      return { success: true, data: insights };
+      const mappedInsights = insights.map(row => ({
+        ...row,
+        type: row.insightType,
+      }));
+
+      return { success: true, data: mappedInsights };
     } catch (error) {
       console.error("Error fetching insights:", error);
       throw new Error("Failed to fetch insights");
