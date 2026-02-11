@@ -96,8 +96,6 @@ export function Header() {
 
           <Button
             render={<Link to="/auth/create" />}
-            variant="outline"
-            className="shrink-0 bg-success/20 text-success hover:bg-success/30"
           >
             Get Started
           </Button>
