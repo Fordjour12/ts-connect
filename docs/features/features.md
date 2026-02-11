@@ -6,6 +6,31 @@ This roadmap turns the full feature vision into shippable phases:
 - `v1`: deliver strong financial awareness and action loop.
 - `v2`: add AI depth, behavioral intelligence, and advanced tooling.
 
+## Current Delivery Status
+
+- ✅ `MVP` is done (core value + retention baseline established).
+- 🔜 `v1` is next (strong financial awareness + action loop delivery).
+- ⏸️ `v2` remains future scope after `v1` completion.
+
+## v1 Kickoff (Now)
+
+To start v1 execution immediately, use this order:
+
+1. **Ship baseline analytics + score first**
+   - Implement period-over-period summaries, trend metrics, and health score states.
+2. **Enable signal generation + persistence**
+   - Add rule-based decline signals with metadata and insight timeline state.
+3. **Close the action loop in-product**
+   - Let users apply at least one corrective action directly from an insight.
+4. **Run on schedule + observe quality**
+   - Add daily/weekly jobs and monitor signal freshness, reliability, and usage.
+
+### v1 Kickoff Definition of Done
+
+- First weekly v1 release includes: score, trend comparison, and at least 3 signal types.
+- Insight cards include explanation + supporting data + one direct action.
+- Scheduled jobs run automatically and are visible in operational monitoring.
+
 Guiding product statement:
 
 > Build a financial self-regulation system, not just a transaction tracker.

@@ -152,6 +152,46 @@ export class SignalDetectionEngine {
     }
   ];
 
+
+  private static readonly refreshWindowMs = 15 * 60 * 1000;
+  private static readonly generationLocks = new Set<string>();
+  private static readonly lastGenerationByUser = new Map<string, number>();
+
+  /**
+   * Non-blocking refresh trigger for signal generation. This keeps read paths fast.
+   */
+  static triggerSignalRefresh(userId: string): void {
+    void this.generateSignalsIfStale(userId).catch((error) => {
+      console.error("Signal refresh trigger failed:", error);
+    });
+  }
+
+  /**
+   * Generate signals only when stale and with a lightweight in-process lock.
+   */
+  static async generateSignalsIfStale(userId: string): Promise<boolean> {
+    const now = Date.now();
+    const lastGeneratedAt = this.lastGenerationByUser.get(userId);
+
+    if (lastGeneratedAt && now - lastGeneratedAt < this.refreshWindowMs) {
+      return false;
+    }
+
+    if (this.generationLocks.has(userId)) {
+      return false;
+    }
+
+    this.generationLocks.add(userId);
+
+    try {
+      await this.generateSignals(userId);
+      this.lastGenerationByUser.set(userId, Date.now());
+      return true;
+    } finally {
+      this.generationLocks.delete(userId);
+    }
+  }
+
   /**
    * Generate all signals for a user
    */

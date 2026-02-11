@@ -107,6 +107,7 @@ export const transaction = pgTable("transaction", {
   accountIdx: index("transaction_financial_account_idx").on(table.accountId),
   categoryIdx: index("transaction_category_idx").on(table.categoryId),
   dateIdx: index("transaction_date_idx").on(table.transactionDate),
+  userDateIdx: index("transaction_user_date_idx").on(table.userId, table.transactionDate),
 }));
 
 // Budgets

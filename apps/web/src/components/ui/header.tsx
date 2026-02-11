@@ -10,7 +10,7 @@ export function Header() {
   const [open, setOpen] = React.useState(false);
   const scrolled = useScroll(10);
 
-  const links = [
+  /*const links = [
     {
       label: "Features",
       href: "#",
@@ -23,7 +23,7 @@ export function Header() {
       label: "About",
       href: "#",
     },
-  ];
+  ];*/
 
   React.useEffect(() => {
     if (open) {
@@ -68,9 +68,15 @@ export function Header() {
           },
         )}
       >
-        <WordmarkIcon className="h-4" />
+        <div>
+          <Link to="/" className="flex items-center gap-2">
+            {/*<WordmarkIcon className="h-4" />*/}
+            FXS
+          </Link>
+        </div>
+
         <div className="hidden items-center gap-2 md:flex">
-          {links.map((link, i) => (
+          {/*{links.map((link, i) => (
             <a
               key={i}
               className={buttonVariants({ variant: "ghost" })}
@@ -78,9 +84,24 @@ export function Header() {
             >
               {link.label}
             </a>
-          ))}
-          <Button variant="outline">Sign In</Button>
-          <Button>Get Started</Button>
+          ))}*/}
+
+          <Button
+            render={<Link to="/auth/login" />}
+            variant="outline"
+            className="shrink-0 bg-success/20 text-success hover:bg-success/30"
+          >
+            Sign In
+          </Button>
+
+          <Button
+            render={<Link to="/auth/create" />}
+            variant="outline"
+            className="shrink-0 bg-success/20 text-success hover:bg-success/30"
+          >
+            Get Started
+          </Button>
+
         </div>
         <Button
           size="icon"
@@ -106,7 +127,7 @@ export function Header() {
           )}
         >
           <div className="grid gap-y-2">
-            {links.map((link) => (
+            {/*{links.map((link) => (
               <a
                 key={link.label}
                 className={buttonVariants({
@@ -117,18 +138,18 @@ export function Header() {
               >
                 {link.label}
               </a>
-            ))}
+            ))}*/}
           </div>
           <div className="flex flex-col gap-2">
             <Button
-              render={<Link to="/login" />}
+              render={<Link to="/auth/login" />}
               variant="outline"
               className="w-full"
             >
               Sign In
             </Button>
 
-            <Button render={<Link to="/signup" />} className="w-full">
+            <Button render={<Link to="/auth/create" />} className="w-full">
               Get Started
             </Button>
           </div>
